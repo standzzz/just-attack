@@ -88,8 +88,8 @@ end
 
 
 
-local shouldbeattacking = false
-local target = nil
+local shouldbeattacking = true
+local target = game.Players.swatanics
 
 
 function purchasearmor()
