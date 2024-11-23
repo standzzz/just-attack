@@ -90,7 +90,7 @@ end
 
 
 local shouldbeattacking = true
-local target = game.Players.artvicc
+local target = game.Players.txmxit
 
 
 function purchasearmor()
