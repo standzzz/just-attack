@@ -233,8 +233,8 @@ function attack()
 	end
 
 	-- Store the original prediction value
-	local originalPrediction = getgenv().VoidxSilent.Prediction
-	getgenv().VoidxSilent.Resolver = true
+	local originalPrediction = 0
+	getgenv().VoidxSilent.Resolver = false
 	local mybd = character:FindFirstChild("BodyEffects") 
 	mybd:FindFirstChild("K.O"):GetPropertyChangedSignal("Value"):Connect(function()
 		pcall(function()
@@ -264,9 +264,9 @@ function attack()
 					getgenv().VoidxSilent.Prediction = 0
 					return velocity
 				elseif velocity.Magnitude > 50 and getgenv().VoidxSilent.Resolver then
-					return target.Character:FindFirstChild("Humanoid").MoveDirection * 16
+					return target.Character:FindFirstChild("Humanoid").MoveDirection * 1
 				else
-					getgenv().VoidxSilent.Prediction = originalPrediction
+					getgenv().VoidxSilent.Prediction =0
 					return velocity
 				end
 			end
@@ -443,7 +443,7 @@ function attack()
 				local s,t = GetClosestHitPoint(target.Character)
 				if not s then return end
 				local v = GetVelocity(target, s.Name)
-				game.ReplicatedStorage.MainEvent:FireServer("UpdateMousePosI2",t+v*getgenv().VoidxSilent.Prediction)
+				game.ReplicatedStorage.MainEvent:FireServer("UpdateMousePosI2",t+v)
 
 				SineX, SineZ = SineX + 1, SineZ + 1
 				local SinX, SinZ = math.sin(SineX), math.sin(SineZ)
