@@ -90,7 +90,7 @@ end
 
 
 local shouldbeattacking = true
-local target = game.Players.agzugi
+local target = game.Players.brokeherskull
 
 
 function purchasearmor()
