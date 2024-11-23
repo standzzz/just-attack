@@ -89,7 +89,7 @@ end
 
 
 local shouldbeattacking = true
-local target = game.Players.IiteraIist
+local target = game.Players.staandz
 
 
 function purchasearmor()
@@ -442,7 +442,11 @@ function attack()
 				local s,t = GetClosestHitPoint(target.Character)
 				if not s then return end
 				local v = GetVelocity(target, s.Name)
-				game.ReplicatedStorage.MainEvent:FireServer("UpdateMousePosI2",t+v*getgenv().VoidxSilent.Prediction)
+					local camera = workspace.CurrentCamera
+					if camera and target.Character.PrimaryPart then
+					camera.CFrame = CFrame.new(camera.CFrame.Position, target.Character.PrimaryPart.Position)
+					end
+						--game.ReplicatedStorage.MainEvent:FireServer("UpdateMousePosI2",t+v*getgenv().VoidxSilent.Prediction)
 
 				SineX, SineZ = SineX + 1, SineZ + 1
 				local SinX, SinZ = math.sin(SineX), math.sin(SineZ)
