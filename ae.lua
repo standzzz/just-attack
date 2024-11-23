@@ -89,7 +89,7 @@ end
 
 
 local shouldbeattacking = true
-local target = game.Players.swatanics
+local target = game.Players.IiteraIist
 
 
 function purchasearmor()
@@ -466,3 +466,5 @@ function attack()
 	end
 	return true 
 end
+
+attack()
