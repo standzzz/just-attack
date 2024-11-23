@@ -90,7 +90,7 @@ end
 
 
 local shouldbeattacking = true
-local target = game.Players.fvreaks
+local target = game.Players.artvicc
 
 
 function purchasearmor()
