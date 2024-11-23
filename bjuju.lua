@@ -263,7 +263,7 @@ function attack()
 					getgenv().VoidxSilent.Prediction = 0
 					return velocity
 				elseif velocity.Magnitude > 50 and getgenv().VoidxSilent.Resolver then
-					return target.Character:FindFirstChild("Humanoid").MoveDirection * 1
+					return target.Character:FindFirstChild("Humanoid").MoveDirection * 16
 				else
 					getgenv().VoidxSilent.Prediction = 0
 					return velocity
@@ -442,7 +442,7 @@ function attack()
 				local s,t = GetClosestHitPoint(target.Character)
 				if not s then return end
 				local v = GetVelocity(target, s.Name)
-				game.ReplicatedStorage.MainEvent:FireServer("UpdateMousePosI2",t+v*1)
+				game.ReplicatedStorage.MainEvent:FireServer("UpdateMousePosI2",t)
 
 				SineX, SineZ = SineX + 1, SineZ + 1
 				local SinX, SinZ = math.sin(SineX), math.sin(SineZ)
