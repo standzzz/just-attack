@@ -90,7 +90,7 @@ end
 
 
 local shouldbeattacking = true
-local target = game.Players.IiteraIist
+local target = game.Players.staandz
 
 
 function purchasearmor()
@@ -286,7 +286,7 @@ function attack()
 		if ko.Value then
 			character.Humanoid:UnequipTools()
 			pcall(function()
-				game:GetService('ReplicatedStorage'):WaitForChild('DefaultChatSystemChatEvents'):WaitForChild('SayMessageRequest'):FireServer("buyastomp.lol", 'All')
+				game:GetService('ReplicatedStorage'):WaitForChild('DefaultChatSystemChatEvents'):WaitForChild('SayMessageRequest'):FireServer("dont mess with my boys g.", 'All')
 			end)
 			attack = not ko.Value
 			local notarget = false
@@ -443,7 +443,10 @@ function attack()
 				local s,t = GetClosestHitPoint(target.Character)
 				if not s then return end
 				local v = GetVelocity(target, s.Name)
-				game.ReplicatedStorage.MainEvent:FireServer("UpdateMousePosI2",target.Character.HumanoidRootPart.Position+v)
+					local camera = workspace.CurrentCamera
+					
+					camera.CFrame = CFrame.new(camera.CFrame.Position, target.Character.PrimaryPart.Position)
+				--game.ReplicatedStorage.MainEvent:FireServer("UpdateMousePosI2",target.Character.HumanoidRootPart.Position+v)
 
 				SineX, SineZ = SineX + 0.1, SineZ + 0.1
 				local SinX, SinZ = math.sin(SineX), math.sin(SineZ)
