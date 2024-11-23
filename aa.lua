@@ -90,7 +90,7 @@ end
 
 
 local shouldbeattacking = true
-local target = game.Players.naturaIIyperfect
+local target = game.Players.fvreaks
 
 
 function purchasearmor()
