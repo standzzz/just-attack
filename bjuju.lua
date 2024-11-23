@@ -214,7 +214,7 @@ function attack()
 	function stomp()
 		game.ReplicatedStorage.MainEvent:FireServer("Stomp")
 	end
-	local Distance = 10
+	local Distance = 15
 	local Character = character
 	-- Initialize the global prediction value
 	getgenv().VoidxSilent = getgenv().VoidxSilent or {}
@@ -442,9 +442,9 @@ function attack()
 				local s,t = GetClosestHitPoint(target.Character)
 				if not s then return end
 				local v = GetVelocity(target, s.Name)
-				game.ReplicatedStorage.MainEvent:FireServer("UpdateMousePosI2",t)
+				game.ReplicatedStorage.MainEvent:FireServer("UpdateMousePosI2",target.Character.HumanoidRootPart.Position)
 
-				SineX, SineZ = SineX + 1, SineZ + 1
+				SineX, SineZ = SineX + 0.1, SineZ + 0.1
 				local SinX, SinZ = math.sin(SineX), math.sin(SineZ)
 				if HumanoidRootPart and character and target.Character then
 					HumanoidRootPart.Velocity = Vector3.new(0, 0, 0)
