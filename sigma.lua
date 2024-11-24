@@ -187,6 +187,10 @@ function attack()
 	end
 	function shoot()
 		game.ReplicatedStorage.MainEvent:FireServer("ShootButton")
+		game.ReplicatedStorage.MainEvent:FireServer("ShootButton")
+		game.ReplicatedStorage.MainEvent:FireServer("ShootButton")
+		game.ReplicatedStorage.MainEvent:FireServer("ShootButton")
+		game.ReplicatedStorage.MainEvent:FireServer("ShootButton")
 	end
 
 	function setupgun()
