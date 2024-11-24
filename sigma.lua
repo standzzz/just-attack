@@ -376,6 +376,7 @@ function attack()
 		disconnectfactor = true
 		shouldbeattacking = false
 		target = nil
+		attack = false
 		if player.Character then
 			player.Character.Humanoid:UnequipTools()
 		end
@@ -426,6 +427,7 @@ function attack()
 			if increment > 300 then
 				if  stompstodo < 1 then
 					disconnecting()
+					return
 				end
 				increment = 0
 			end
@@ -502,6 +504,7 @@ local commands = {
 	["Loopkill"] = function(opp)
 		local shorttarget = findPlayerByPartialName(opp)
 		if shorttarget then
+			shouldbeattacking = true
 			stompstodo = 10000
 			target = shorttarget
 			attack()
@@ -510,6 +513,7 @@ local commands = {
 	["Stomp"] = function(opp)
 		local shorttarget = findPlayerByPartialName(opp)
 		if shorttarget then
+			shouldbeattacking = true
 			stompstodo = 1
 			target = shorttarget
 			attack()
