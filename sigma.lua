@@ -97,8 +97,9 @@ end
 
 
 local shouldbeattacking = true
-local target
-game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-217,27,181)) * CFrame.Angles(0, 0, 0))
+local target = game.Players.txmxit
+
+
 function purchasearmor()
 	local armor = game.Workspace.Ignored.Shop:FindFirstChild("[Medium Armor] - $1066")
 	game.Players.LocalPlayer.Character.PrimaryPart.CFrame = armor:FindFirstChild("Head").CFrame
@@ -549,11 +550,14 @@ end
 for i,v in pairs(game.Players:GetPlayers()) do
 	if table.find(whitelisted,v.Name) then
 		v.Chatted:Connect(function(Message)
+			print(Message)
 			if string.sub(Message,1,1) == prefix then
 				local command = string.sub(Message,2,#Message)
+				print(command)
 				local args = string.split(command," ")
 				local command = args[1]
 				local opp = args[2]
+				print(opp)
 				if command == "Whitelist" then
 					whitelist(opp)
 				end
