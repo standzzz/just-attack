@@ -1,4 +1,5 @@
 
+
 print("Hello world!")
 local Players = game:GetService("Players")
 
@@ -166,10 +167,10 @@ function attack()
 		wait(1)
 		repeat wait(0.1)
 			fireclickdetector(lmg.ClickDetector)
-		until game.Players.LocalPlayer.Backpack:FindFirstChild("[LMG]") or  game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("[LMG]")
+		until not shouldbeattacking or game.Players.LocalPlayer.Backpack:FindFirstChild("[LMG]") or  game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("[LMG]")
 		wait(1)
 		repeat task.wait()
-		until lmgAMMO:FindFirstChild("ClickDetector")
+		until lmgAMMO:FindFirstChild("ClickDetector") or not shouldbeattacking
 		local cd = lmgAMMO:FindFirstChild("ClickDetector")
 		game.Players.LocalPlayer.Character.PrimaryPart.CFrame = lmgAMMO.Head.CFrame
 		for i = 1,15 do
@@ -321,7 +322,7 @@ function attack()
 
 				-- Wait 0.5 seconds before the next iteration
 
-			until not target or bd:FindFirstChild("Dead").Value == true or bd:FindFirstChild("K.O").Value == false
+			until not target or bd:FindFirstChild("Dead").Value == true or bd:FindFirstChild("K.O").Value == false or not shouldbeattacking
 
 			-- Move the player's character to a new position after the loop ends
 			stompstodo = stompstodo - 1
@@ -364,7 +365,7 @@ function attack()
 					wait(0.1)
 					game.ReplicatedStorage.MainEvent:FireServer("Stomp")
 
-				until  not target or notarget or bd:FindFirstChild("Dead").Value == true  or bd:FindFirstChild("K.O").Value == false 
+				until  not target or notarget or bd:FindFirstChild("Dead").Value == true  or bd:FindFirstChild("K.O").Value == false or not shouldbeattacking
 
 				game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-217,27,181)) * CFrame.Angles(0, 0, 0))
 				stompstodo = stompstodo - 1
@@ -524,13 +525,15 @@ local commands = {
 		end
 	end,
 	["Fix"] = function()
+		shouldbeattacking = false
+		game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):ChangeState(Enum.HumanoidStateType.Dead)
 		
 	end,
 	["Flame"] = function(opp)
-		
+
 	end,
 	["Bring"] = function(opp,master)
-		
+
 	end,
 
 }
@@ -551,7 +554,7 @@ function whitelist(user)
 				end
 			end
 		end)
-		
+
 	end
 end
 for i,v in pairs(game.Players:GetPlayers()) do
@@ -582,7 +585,7 @@ game.Players.PlayerAdded:Connect(function(v)
 		v.Chatted:Connect(function(Message)
 			if string.sub(Message,1,1) == prefix then
 				local command = string.sub(Message,2,#Message)
-				
+
 				local args = string.split(command," ")
 				local command = args[1]
 				local opp = args[2]
