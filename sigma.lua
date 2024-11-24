@@ -187,11 +187,25 @@ function attack()
 		game.Players.LocalPlayer.PlayerGui:FindFirstChild("Framework",true):Destroy()
 	end
 	function shoot()
-		game.ReplicatedStorage.MainEvent:FireServer("ShootButton")
-		game.ReplicatedStorage.MainEvent:FireServer("ShootButton")
-		game.ReplicatedStorage.MainEvent:FireServer("ShootButton")
-		game.ReplicatedStorage.MainEvent:FireServer("ShootButton")
-		game.ReplicatedStorage.MainEvent:FireServer("ShootButton")
+		local args = {
+    [1] = "Shoot"
+}
+
+game:GetService("Players").LocalPlayer.Character:FindFirstChild("[LMG]").RemoteEvent:FireServer(unpack(args))
+
+local args = {
+    [1] = "ShootGun",
+    [2] = game:GetService("Players").LocalPlayer.Character:FindFirstChild("[LMG]").Handle,
+    [3] = game:GetService("Players").LocalPlayer.Character:FindFirstChild("[LMG]").Handle.Position,
+    [4] = target.Character.Head.Position,
+    [5] =  target.Character.Head,
+    [6] = target.Character.Head.CFrame.LookVector
+}
+
+game:GetService("ReplicatedStorage"):FindFirstChild("MainEvent"):FireServer(unpack(args))
+
+game:GetService("Players").LocalPlayer.Character:FindFirstChild("[LMG]").RemoteEvent:FireServer()
+
 	end
 
 	function setupgun()
