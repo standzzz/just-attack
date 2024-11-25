@@ -6,7 +6,7 @@ local Players = game:GetService("Players")
 -- Function to find a player by partial name
 
 
-
+workspace.FallenPartsDestroyHeight=0/0
 queueteleport = (syn and syn.queue_on_teleport) or queue_on_teleport or (fluxus and fluxus.queue_on_teleport)
 print("working")
 local currentreceiptinfo = {
@@ -99,14 +99,14 @@ end
 
 local shouldbeattacking = true
 local target 
-game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-217,27,181)) * CFrame.Angles(0, 0, 0))
+game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-217,-500,181)) * CFrame.Angles(0, 0, 0))
 function purchasearmor()
 	local armor = game.Workspace.Ignored.Shop:FindFirstChild("[Medium Armor] - $1066")
 	game.Players.LocalPlayer.Character.PrimaryPart.CFrame = armor:FindFirstChild("Head").CFrame
 	wait(0.5)
 	fireclickdetector(armor:FindFirstChild("ClickDetector"))
 	wait(0.5)
-	game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-217,27,181)) * CFrame.Angles(0, 0, 0))
+	game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-217,-500,181)) * CFrame.Angles(0, 0, 0))
 end
 
 function checkforammo()
@@ -120,7 +120,8 @@ function checkforammo()
 			if cd then
 				fireclickdetector(cd)
 			end
-			game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-217,27,181)) * CFrame.Angles(0, 0, 0))
+			game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-217,-500,181)) * CFrame.Angles(0, 0, 0))
+			wait(0.05)
 		end
 	end
 end
@@ -179,7 +180,7 @@ function attack()
 			if cd then
 				fireclickdetector(cd)
 			end
-			game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-217,27,181)) * CFrame.Angles(0, 0, 0))
+			game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-217,-500,181)) * CFrame.Angles(0, 0, 0))
 		end
 	end
 
@@ -324,7 +325,7 @@ game:GetService("Players").LocalPlayer.Character:FindFirstChild("[LMG]").RemoteE
 					character.PrimaryPart.CFrame = CFrame.new(target.Character.UpperTorso.Position + Vector3.new(0,2,0))
 				else
 
-					game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-217,27,181)) * CFrame.Angles(0, 0, 0))
+					game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-217,-500,181)) * CFrame.Angles(0, 0, 0))
 					notarget = true
 
 
@@ -340,7 +341,7 @@ game:GetService("Players").LocalPlayer.Character:FindFirstChild("[LMG]").RemoteE
 
 			-- Move the player's character to a new position after the loop ends
 			stompstodo = stompstodo - 1
-			game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-217,27,181)) * CFrame.Angles(0, 0, 0))
+			game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-217,-500,181)) * CFrame.Angles(0, 0, 0))
 			pcall(purchasearmor)
 		end
 	end)
@@ -371,7 +372,7 @@ game:GetService("Players").LocalPlayer.Character:FindFirstChild("[LMG]").RemoteE
 						character.PrimaryPart.CFrame = CFrame.new(target.Character.UpperTorso.Position + Vector3.new(0,2,0))
 					else
 
-						game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-217,27,181)) * CFrame.Angles(0, 0, 0))
+						game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-217,-500,181)) * CFrame.Angles(0, 0, 0))
 
 						notarget = true
 
@@ -381,7 +382,7 @@ game:GetService("Players").LocalPlayer.Character:FindFirstChild("[LMG]").RemoteE
 
 				until  not target or notarget or bd:FindFirstChild("Dead").Value == true  or bd:FindFirstChild("K.O").Value == false or not shouldbeattacking
 
-				game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-217,27,181)) * CFrame.Angles(0, 0, 0))
+				game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-217,-500,181)) * CFrame.Angles(0, 0, 0))
 				stompstodo = stompstodo - 1
 				pcall(purchasearmor)
 			end
