@@ -685,7 +685,7 @@ function grab(owner)
 	local ko = target and target.Character and target.Character:FindFirstChild("BodyEffects") and (target.Character:FindFirstChild("BodyEffects"):FindFirstChild("K.O") or target.Character:FindFirstChild("BodyEffects"):FindFirstChild("KO"))
 
 	activeconnections.A = ko:GetPropertyChangedSignal("Value"):Connect(function()
-		if ko.Value then
+		if ko.Value and stompstodo == 1 then
 			character.Humanoid:UnequipTools()
 			pcall(function()
 				game:GetService('ReplicatedStorage'):WaitForChild('DefaultChatSystemChatEvents'):WaitForChild('SayMessageRequest'):FireServer("taking you to bossman", 'All')
