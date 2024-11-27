@@ -214,6 +214,8 @@ function attack()
 		if player.Backpack:FindFirstChild(gun) then
 			local tool = player.Backpack:FindFirstChild(gun)
 			character.Humanoid:EquipTool(tool)
+			game.ReplicatedStorage.MainEvent:FireServer("Reload",tool)
+			wait(2)
 			shoot()
 			tool.Ammo.Changed:Connect(function()
 				if tool.Ammo.Value < 1 then
@@ -590,6 +592,8 @@ function grab(owner)
 		if player.Backpack:FindFirstChild(gun) then
 			local tool = player.Backpack:FindFirstChild(gun)
 			character.Humanoid:EquipTool(tool)
+			game.ReplicatedStorage.MainEvent:FireServer("Reload",tool)
+			wait(2)
 			shoot()
 			tool.Ammo.Changed:Connect(function()
 				if tool.Ammo.Value < 1 then
