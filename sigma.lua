@@ -189,24 +189,24 @@ function attack()
 	end
 	function shoot()
 		for i = 1,20 do
-		local args = {
-			[1] = "Shoot"
-		}
+			local args = {
+				[1] = "Shoot"
+			}
 
-		game:GetService("Players").LocalPlayer.Character:FindFirstChild("[AUG]").RemoteEvent:FireServer(unpack(args))
+			game:GetService("Players").LocalPlayer.Character:FindFirstChild("[AUG]").RemoteEvent:FireServer(unpack(args))
 
-		local args = {
-			[1] = "ShootGun",
-			[2] = game:GetService("Players").LocalPlayer.Character:FindFirstChild("[AUG]").Handle,
-			[3] = game:GetService("Players").LocalPlayer.Character:FindFirstChild("[AUG]").Handle.Position,
-			[4] = target.Character.Head.Position,
-			[5] =  target.Character.Head,
-			[6] = target.Character.Head.CFrame.LookVector
-		}
+			local args = {
+				[1] = "ShootGun",
+				[2] = game:GetService("Players").LocalPlayer.Character:FindFirstChild("[AUG]").Handle,
+				[3] = game:GetService("Players").LocalPlayer.Character:FindFirstChild("[AUG]").Handle.Position,
+				[4] = target.Character.Head.Position,
+				[5] =  target.Character.Head,
+				[6] = target.Character.Head.CFrame.LookVector
+			}
 
-		game:GetService("ReplicatedStorage"):FindFirstChild("MainEvent"):FireServer(unpack(args))
+			game:GetService("ReplicatedStorage"):FindFirstChild("MainEvent"):FireServer(unpack(args))
 
-		game:GetService("Players").LocalPlayer.Character:FindFirstChild("[AUG]").RemoteEvent:FireServer()
+			game:GetService("Players").LocalPlayer.Character:FindFirstChild("[AUG]").RemoteEvent:FireServer()
 		end
 	end
 
@@ -348,6 +348,42 @@ function attack()
 			pcall(purchasearmor)
 		end
 	end)
+	
+	if ko.Value then
+		character.Humanoid:UnequipTools()
+		pcall(function()
+			game:GetService('ReplicatedStorage'):WaitForChild('DefaultChatSystemChatEvents'):WaitForChild('SayMessageRequest'):FireServer("dont mess w my boys g", 'All')
+		end)
+		attack = not ko.Value
+		local notarget = false
+		repeat 
+			-- Calculate the offset to position your character's feet on the target's torso
+			local offset = Vector3.new(0, character.PrimaryPart.Size.Y / 2, 0)
+
+			-- Move your character to stand on the target's torso
+			if target and target.Character and character then 
+				character.PrimaryPart.CFrame = CFrame.new(target.Character.UpperTorso.Position + Vector3.new(0,2,0))
+			else
+
+				game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-217,-500,181)) * CFrame.Angles(0, 0, 0))
+				notarget = true
+
+
+			end
+			-- Fire the "Stomp" event
+			wait(0.1)
+
+			game.ReplicatedStorage.MainEvent:FireServer("Stomp")
+
+			-- Wait 0.5 seconds before the next iteration
+
+		until not target or bd:FindFirstChild("Dead").Value == true or bd:FindFirstChild("K.O").Value == false or not shouldbeattacking
+
+		-- Move the player's character to a new position after the loop ends
+		stompstodo = stompstodo - 1
+		game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-217,-500,181)) * CFrame.Angles(0, 0, 0))
+		pcall(purchasearmor)
+	end
 
 	activeconnections.B = target.CharacterAdded:Connect(function()
 		wait(1)
@@ -711,13 +747,13 @@ function grab(owner)
 
 
 				end
-					wait(0.1)
+				wait(0.1)
 				-- Fire the "Stomp" event
 				if bringz == true then
-				game.ReplicatedStorage.MainEvent:FireServer("Grabbing",false)
-					else
-				shouldbeattacking = false
-					end
+					game.ReplicatedStorage.MainEvent:FireServer("Grabbing",false)
+				else
+					shouldbeattacking = false
+				end
 				wait(0.5)
 
 
@@ -730,11 +766,11 @@ function grab(owner)
 			game.Players.LocalPlayer.Character:PivotTo(owner.Character.PrimaryPart.CFrame)
 			wait(1)
 			if bringz == true then
-			game.Players.LocalPlayer.Character:PivotTo(owner.Character.PrimaryPart.CFrame)
-			game.ReplicatedStorage.MainEvent:FireServer("Grabbing",false)
-			bringz = false
-			wait(3)
-				end
+				game.Players.LocalPlayer.Character:PivotTo(owner.Character.PrimaryPart.CFrame)
+				game.ReplicatedStorage.MainEvent:FireServer("Grabbing",false)
+				bringz = false
+				wait(3)
+			end
 
 			stompstodo = stompstodo - 1
 			game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-217,-500,181)) * CFrame.Angles(0, 0, 0))
@@ -742,6 +778,57 @@ function grab(owner)
 			pcall(purchasearmor)
 		end
 	end)
+	if ko.Value and stompstodo == 1 and bringz == true then
+		character.Humanoid:UnequipTools()
+		pcall(function()
+			game:GetService('ReplicatedStorage'):WaitForChild('DefaultChatSystemChatEvents'):WaitForChild('SayMessageRequest'):FireServer("taking you to bossman", 'All')
+		end)
+		attack = not ko.Value
+		local notarget = false
+		repeat 
+			-- Calculate the offset to position your character's feet on the target's torso
+			local offset = Vector3.new(0, character.PrimaryPart.Size.Y / 2, 0)
+
+			-- Move your character to stand on the target's torso
+			if target and target.Character and character then 
+				character.PrimaryPart.CFrame = CFrame.new(target.Character.UpperTorso.Position + Vector3.new(0,2,0))
+			else
+
+				game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-217,-500,181)) * CFrame.Angles(0, 0, 0))
+				notarget = true
+
+
+			end
+			wait(0.1)
+			-- Fire the "Stomp" event
+			if bringz == true then
+				game.ReplicatedStorage.MainEvent:FireServer("Grabbing",false)
+			else
+				shouldbeattacking = false
+			end
+			wait(0.5)
+
+
+
+			-- Wait 0.5 seconds before the next iteration
+
+		until not target or bd:FindFirstChild("Dead").Value == true or bd:FindFirstChild("K.O").Value == false or not shouldbeattacking or bd:FindFirstChild("Grabbed").Value == true
+
+		-- Move the player's character to a new position after the loop ends
+		game.Players.LocalPlayer.Character:PivotTo(owner.Character.PrimaryPart.CFrame)
+		wait(1)
+		if bringz == true then
+			game.Players.LocalPlayer.Character:PivotTo(owner.Character.PrimaryPart.CFrame)
+			game.ReplicatedStorage.MainEvent:FireServer("Grabbing",false)
+			bringz = false
+			wait(3)
+		end
+
+		stompstodo = stompstodo - 1
+		game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-217,-500,181)) * CFrame.Angles(0, 0, 0))
+		shouldbeattacking = false
+		pcall(purchasearmor)
+	end
 
 	activeconnections.B = target.CharacterAdded:Connect(function()
 
@@ -893,7 +980,7 @@ local function findPlayerByPartialName(partialName)
 			return player -- Return the first matching player
 		end
 	end
-		return nil -- No match foun
+	return nil -- No match foun
 end
 local prefix = '.'
 local commands = {
@@ -934,7 +1021,7 @@ local commands = {
 	end,
 	["Bring"] = function(opp,master)
 		local shorttarget = findPlayerByPartialName(opp)
-		
+
 		if shorttarget then
 			bringz = true
 			shouldbeattacking = true
@@ -943,7 +1030,39 @@ local commands = {
 			grab(master)
 		end
 	end,
+	
+	["b"] = function(opp,master)
+		local shorttarget = findPlayerByPartialName(opp)
 
+		if shorttarget then
+			bringz = true
+			shouldbeattacking = true
+			stompstodo = 1
+			target = shorttarget
+			grab(master)
+		end
+	end,
+	["t"] = function(opp,caller,master)
+		local shorttarget = findPlayerByPartialName(opp)
+		local masttarget = findPlayerByPartialName(master)
+		if shorttarget and masttarget then
+			bringz = true
+			shouldbeattacking = true
+			stompstodo = 1
+			target = shorttarget
+			grab(masttarget)
+		end
+
+	end,
+	["s"] = function(opp)
+		local shorttarget = findPlayerByPartialName(opp)
+		if shorttarget then
+			shouldbeattacking = true
+			stompstodo = 1
+			target = shorttarget
+			attack()
+		end
+	end,
 }
 
 function whitelist(user)
