@@ -706,11 +706,12 @@ function grab(owner)
 
 
 				end
+					wait(0.1)
 				-- Fire the "Stomp" event
 			
 				game.ReplicatedStorage.MainEvent:FireServer("Grabbing",false)
 			
-				wait(0.1)
+				wait(0.5)
 
 
 
