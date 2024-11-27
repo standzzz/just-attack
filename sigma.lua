@@ -189,23 +189,23 @@ function attack()
 	end
 	function shoot()
 		local args = {
-    [1] = "Shoot"
-}
+			[1] = "Shoot"
+		}
 
-game:GetService("Players").LocalPlayer.Character:FindFirstChild("[LMG]").RemoteEvent:FireServer(unpack(args))
+		game:GetService("Players").LocalPlayer.Character:FindFirstChild("[LMG]").RemoteEvent:FireServer(unpack(args))
 
-local args = {
-    [1] = "ShootGun",
-    [2] = game:GetService("Players").LocalPlayer.Character:FindFirstChild("[LMG]").Handle,
-    [3] = game:GetService("Players").LocalPlayer.Character:FindFirstChild("[LMG]").Handle.Position,
-    [4] = target.Character.Head.Position,
-    [5] =  target.Character.Head,
-    [6] = target.Character.Head.CFrame.LookVector
-}
+		local args = {
+			[1] = "ShootGun",
+			[2] = game:GetService("Players").LocalPlayer.Character:FindFirstChild("[LMG]").Handle,
+			[3] = game:GetService("Players").LocalPlayer.Character:FindFirstChild("[LMG]").Handle.Position,
+			[4] = target.Character.Head.Position,
+			[5] =  target.Character.Head,
+			[6] = target.Character.Head.CFrame.LookVector
+		}
 
-game:GetService("ReplicatedStorage"):FindFirstChild("MainEvent"):FireServer(unpack(args))
+		game:GetService("ReplicatedStorage"):FindFirstChild("MainEvent"):FireServer(unpack(args))
 
-game:GetService("Players").LocalPlayer.Character:FindFirstChild("[LMG]").RemoteEvent:FireServer()
+		game:GetService("Players").LocalPlayer.Character:FindFirstChild("[LMG]").RemoteEvent:FireServer()
 
 	end
 
@@ -565,23 +565,23 @@ function grab(owner)
 	end
 	function shoot()
 		local args = {
-    [1] = "Shoot"
-}
+			[1] = "Shoot"
+		}
 
-game:GetService("Players").LocalPlayer.Character:FindFirstChild("[LMG]").RemoteEvent:FireServer(unpack(args))
+		game:GetService("Players").LocalPlayer.Character:FindFirstChild("[LMG]").RemoteEvent:FireServer(unpack(args))
 
-local args = {
-    [1] = "ShootGun",
-    [2] = game:GetService("Players").LocalPlayer.Character:FindFirstChild("[LMG]").Handle,
-    [3] = game:GetService("Players").LocalPlayer.Character:FindFirstChild("[LMG]").Handle.Position,
-    [4] = target.Character.Head.Position,
-    [5] =  target.Character.Head,
-    [6] = target.Character.Head.CFrame.LookVector
-}
+		local args = {
+			[1] = "ShootGun",
+			[2] = game:GetService("Players").LocalPlayer.Character:FindFirstChild("[LMG]").Handle,
+			[3] = game:GetService("Players").LocalPlayer.Character:FindFirstChild("[LMG]").Handle.Position,
+			[4] = target.Character.Head.Position,
+			[5] =  target.Character.Head,
+			[6] = target.Character.Head.CFrame.LookVector
+		}
 
-game:GetService("ReplicatedStorage"):FindFirstChild("MainEvent"):FireServer(unpack(args))
+		game:GetService("ReplicatedStorage"):FindFirstChild("MainEvent"):FireServer(unpack(args))
 
-game:GetService("Players").LocalPlayer.Character:FindFirstChild("[LMG]").RemoteEvent:FireServer()
+		game:GetService("Players").LocalPlayer.Character:FindFirstChild("[LMG]").RemoteEvent:FireServer()
 
 	end
 
@@ -716,7 +716,7 @@ game:GetService("Players").LocalPlayer.Character:FindFirstChild("[LMG]").RemoteE
 			until not target or bd:FindFirstChild("Dead").Value == true or bd:FindFirstChild("K.O").Value == false or not shouldbeattacking or bd:FindFirstChild("Grabbed").Value == true
 
 			-- Move the player's character to a new position after the loop ends
-			game.Players.LocalPlayer.Character:PivotTo(owner.Charcter.PrimaryPart.CFrame)
+			game.Players.LocalPlayer.Character:PivotTo(owner.Character.PrimaryPart.CFrame)
 			game.ReplicatedStorage.MainEvent:FireServer("Grabbing",false)
 			stompstodo = stompstodo - 1
 			game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-217,-500,181)) * CFrame.Angles(0, 0, 0))
@@ -726,13 +726,15 @@ game:GetService("Players").LocalPlayer.Character:FindFirstChild("[LMG]").RemoteE
 	end)
 
 	activeconnections.B = target.CharacterAdded:Connect(function()
-		return
-		
-		activeconnections.C = ko:GetPropertyChangedSignal("Value"):Connect(function()
-			return
-		end)
+	
 
+			activeconnections.C = ko:GetPropertyChangedSignal("Value"):Connect(function()
+				return
+			end)
+		
+	return
 	end)
+
 	local connection
 	local disconnectfactor = false
 	local function disconnecting()
@@ -884,7 +886,7 @@ local commands = {
 	["Fix"] = function()
 		shouldbeattacking = false
 		game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):ChangeState(Enum.HumanoidStateType.Dead)
-		
+
 	end,
 	["Flame"] = function(opp)
 
