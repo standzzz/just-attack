@@ -710,7 +710,7 @@ function grab(owner)
 				game.ReplicatedStorage.MainEvent:FireServer("Grabbing",false)
 				wait(0.1)
 
-				
+
 
 				-- Wait 0.5 seconds before the next iteration
 
@@ -720,13 +720,13 @@ function grab(owner)
 			wait(0.1)
 			game.Players.LocalPlayer.Character:PivotTo(owner.Character.PrimaryPart.CFrame)
 			wait(0.5)
-			repeat
-						game.Players.LocalPlayer.Character:PivotTo(owner.Character.PrimaryPart.CFrame)
+
+			game.Players.LocalPlayer.Character:PivotTo(owner.Character.PrimaryPart.CFrame)
 			game.ReplicatedStorage.MainEvent:FireServer("Grabbing",false)
-					
-			wait(0.5)
-			until not target or bd:FindFirstChild("Dead").Value == true or bd:FindFirstChild("K.O").Value == false or not shouldbeattacking or bd:FindFirstChild("Grabbed").Value == false
-			wait(0.5)
+
+			wait(1)
+
+
 			stompstodo = stompstodo - 1
 			game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-217,-500,181)) * CFrame.Angles(0, 0, 0))
 			shouldbeattacking = false
@@ -735,13 +735,13 @@ function grab(owner)
 	end)
 
 	activeconnections.B = target.CharacterAdded:Connect(function()
-	
 
-			activeconnections.C = ko:GetPropertyChangedSignal("Value"):Connect(function()
-				return
-			end)
-		
-	return
+
+		activeconnections.C = ko:GetPropertyChangedSignal("Value"):Connect(function()
+			return
+		end)
+
+		return
 	end)
 
 	local connection
@@ -862,7 +862,20 @@ local whitelisted = {
 local Players = game:GetService("Players")
 
 -- Function to find a player by partial name
+local function displaysearch(partialName)
+	partialName = string.lower(partialName) -- Make it case-insensitive
+	for _, player in ipairs(Players:GetPlayers()) do
+		local playerName = string.lower(player.DisplayName)
+		if string.find(playerName, partialName) then
+			return player -- Return the first matching player
+		end
+	end
+	return nil -- No match found
+end
+
 local function findPlayerByPartialName(partialName)
+	local dname = displaysearch(partialName)
+	if dname then return dname end 
 	partialName = string.lower(partialName) -- Make it case-insensitive
 	for _, player in ipairs(Players:GetPlayers()) do
 		local playerName = string.lower(player.Name)
@@ -870,7 +883,7 @@ local function findPlayerByPartialName(partialName)
 			return player -- Return the first matching player
 		end
 	end
-	return nil -- No match found
+		return nil -- No match foun
 end
 local prefix = '.'
 local commands = {
@@ -897,7 +910,15 @@ local commands = {
 		game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):ChangeState(Enum.HumanoidStateType.Dead)
 
 	end,
-	["Flame"] = function(opp)
+	["Take"] = function(opp,caller,master)
+		local shorttarget = findPlayerByPartialName(opp)
+		local masttarget = findPlayerByPartialName(master)
+		if shorttarget and masttarget then
+			shouldbeattacking = true
+			stompstodo = 1
+			target = shorttarget
+			grab(masttarget)
+		end
 
 	end,
 	["Bring"] = function(opp,master)
@@ -923,8 +944,9 @@ function whitelist(user)
 				local args = string.split(command," ")
 				local command = args[1]
 				local opp = args[2]
+				local d = args[3]
 				if commands[command] then
-					commands[command](opp,v)
+					commands[command](opp,v,d)
 				end
 			end
 		end)
@@ -941,12 +963,13 @@ for i,v in pairs(game.Players:GetPlayers()) do
 				local args = string.split(command," ")
 				local command = args[1]
 				local opp = args[2]
+				local d = args[3]
 				print(opp)
 				if command == "Whitelist" then
 					whitelist(opp)
 				end
 				if commands[command] then
-					commands[command](opp,v)
+					commands[command](opp,v,d)
 				end
 			end
 		end)
@@ -963,11 +986,12 @@ game.Players.PlayerAdded:Connect(function(v)
 				local args = string.split(command," ")
 				local command = args[1]
 				local opp = args[2]
+				local d = args[3]
 				if command == "Whitelist" then
 					whitelist(opp)
 				end
 				if commands[command] then
-					commands[command](opp,v)
+					commands[command](opp,v,d)
 				end
 			end
 		end)
