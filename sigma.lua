@@ -707,18 +707,23 @@ function grab(owner)
 
 				end
 				-- Fire the "Stomp" event
+				game.ReplicatedStorage.MainEvent:FireServer("Grabbing",false)
 				wait(0.1)
 
-				game.ReplicatedStorage.MainEvent:FireServer("Grabbing",false)
+				
 
 				-- Wait 0.5 seconds before the next iteration
 
 			until not target or bd:FindFirstChild("Dead").Value == true or bd:FindFirstChild("K.O").Value == false or not shouldbeattacking or bd:FindFirstChild("Grabbed").Value == true
 
 			-- Move the player's character to a new position after the loop ends
+			wait(0.1)
 			game.Players.LocalPlayer.Character:PivotTo(owner.Character.PrimaryPart.CFrame)
 			wait(0.5)
+			repeat
 			game.ReplicatedStorage.MainEvent:FireServer("Grabbing",false)
+			wait(0.1)
+			until not target or bd:FindFirstChild("Dead").Value == true or bd:FindFirstChild("K.O").Value == false or not shouldbeattacking or bd:FindFirstChild("Grabbed").Value == false
 			wait(0.5)
 			stompstodo = stompstodo - 1
 			game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-217,-500,181)) * CFrame.Angles(0, 0, 0))
