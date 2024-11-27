@@ -501,8 +501,350 @@ game:GetService("Players").LocalPlayer.Character:FindFirstChild("[LMG]").RemoteE
 end
 
 
+---------------------------------------
+function grab(owner)
+	local activeconnections = {
+		A = nil,
+		B = nil,
+		C = nil,
+		D = nil
+	}
+	local ping = getUserPing()
+	local pred = 0
+
+	if ping > 80 and ping < 120 then
+		pred = 0.15
+	elseif ping > 120 and ping < 250 then
+		pred = 0.225
+	elseif ping > 200 and ping < 320 then
+		pred = 2.5
+	elseif ping > 320 then
+		pred = 3
+	end
+	pred = 0
+
+	print("attacking.../")
+	local attack = true
+	local gun = "[LMG]"
+	local player = game.Players.LocalPlayer
+	local character = game.Players.LocalPlayer.Character
+	function noclipactive()
+		for i,v in pairs(character:GetChildren()) do
+			if v:IsA("BasePart") then
+				v.CanCollide = false
+			end
+		end
+	end
+
+	function grabguns()
+		local lmg = game.Workspace.Ignored.Shop:FindFirstChild("[LMG] - $3978")
+		local lmgAMMO = game.Workspace.Ignored.Shop:FindFirstChild("200 [LMG Ammo] - $318")
+
+		game.Players.LocalPlayer.Character.PrimaryPart.CFrame = lmg.Head.CFrame
+		wait(1)
+		repeat wait(0.1)
+			fireclickdetector(lmg.ClickDetector)
+		until not shouldbeattacking or game.Players.LocalPlayer.Backpack:FindFirstChild("[LMG]") or  game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("[LMG]")
+		wait(1)
+		repeat task.wait()
+		until lmgAMMO:FindFirstChild("ClickDetector") or not shouldbeattacking
+		local cd = lmgAMMO:FindFirstChild("ClickDetector")
+		game.Players.LocalPlayer.Character.PrimaryPart.CFrame = lmgAMMO.Head.CFrame
+		for i = 1,15 do
+			game.Players.LocalPlayer.Character.PrimaryPart.CFrame = lmgAMMO.Head.CFrame
+			wait(0.1)
+			if cd then
+				fireclickdetector(cd)
+			end
+			game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-217,-500,181)) * CFrame.Angles(0, 0, 0))
+		end
+	end
+
+	if game.Players.LocalPlayer.PlayerGui:FindFirstChild("Framework",true) then
+		game.Players.LocalPlayer.PlayerGui:FindFirstChild("Framework",true):Destroy()
+	end
+	function shoot()
+		local args = {
+    [1] = "Shoot"
+}
+
+game:GetService("Players").LocalPlayer.Character:FindFirstChild("[LMG]").RemoteEvent:FireServer(unpack(args))
+
+local args = {
+    [1] = "ShootGun",
+    [2] = game:GetService("Players").LocalPlayer.Character:FindFirstChild("[LMG]").Handle,
+    [3] = game:GetService("Players").LocalPlayer.Character:FindFirstChild("[LMG]").Handle.Position,
+    [4] = target.Character.Head.Position,
+    [5] =  target.Character.Head,
+    [6] = target.Character.Head.CFrame.LookVector
+}
+
+game:GetService("ReplicatedStorage"):FindFirstChild("MainEvent"):FireServer(unpack(args))
+
+game:GetService("Players").LocalPlayer.Character:FindFirstChild("[LMG]").RemoteEvent:FireServer()
+
+	end
+
+	function setupgun()
+		if player.Backpack:FindFirstChild(gun) then
+			local tool = player.Backpack:FindFirstChild(gun)
+			character.Humanoid:EquipTool(tool)
+			shoot()
+			tool.Ammo.Changed:Connect(function()
+				if tool.Ammo.Value < 1 then
+					game.ReplicatedStorage.MainEvent:FireServer("Reload",tool)
+				else
+					shoot()
+				end
 
 
+
+			end)
+		else
+			pcall(grabguns)
+		end
+	end
+
+	function Reload()
+		if character:FindFirstChildWhichIsA("Tool") then
+			local tool = character:FindFirstChildWhichIsA("Tool")
+			if tool:FindFirstChild("Ammo") and tool:FindFirstChild("Ammo").Value == 0 then
+				game.ReplicatedStorage.MainEvent:FireServer("Reload",tool)
+			end
+		end
+	end
+
+	function stomp()
+		game.ReplicatedStorage.MainEvent:FireServer("Stomp")
+	end
+	local Distance = 10
+	local Character = character
+	-- Initialize the global prediction value
+	getgenv().VoidxSilent = getgenv().VoidxSilent or {}
+	getgenv().VoidxSilent.Prediction = 0  -- Set the original prediction value
+
+	-- Function to get the closest hit point, always returning the HumanoidRootPart
+	local function GetClosestHitPoint(targetModel)
+		if targetModel then
+			local humanoidRootPart = targetModel:FindFirstChild("HumanoidRootPart")
+			if humanoidRootPart  then
+				return humanoidRootPart, humanoidRootPart.Position
+			end
+		end
+		return nil, nil
+	end
+
+	-- Store the original prediction value
+	local originalPrediction = getgenv().VoidxSilent.Prediction
+	getgenv().VoidxSilent.Resolver = true
+	local mybd = character:FindFirstChild("BodyEffects") 
+	mybd:FindFirstChild("K.O"):GetPropertyChangedSignal("Value"):Connect(function()
+		pcall(function()
+			if mybd:FindFirstChild("K.O").Value == true then
+				game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):ChangeState(Enum.HumanoidStateType.Dead)
+			end
+		end)
+	end)
+
+	player.CharacterAdded:Connect(function()
+		local mybd = character:FindFirstChild("BodyEffects") 
+		mybd:FindFirstChild("K.O"):GetPropertyChangedSignal("Value"):Connect(function()
+			pcall(function()
+				if mybd:FindFirstChild("K.O").Value == true then
+					game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):ChangeState(Enum.HumanoidStateType.Dead)
+				end
+			end)
+		end)
+	end)
+	-- Function to get the velocity of the target's part
+	local function GetVelocity(target, partName)
+		if target and target.Character then
+			local targetPart = target.Character:FindFirstChild(partName)
+			if targetPart then
+				local velocity = targetPart.Velocity
+				if velocity.Y < -30 and getgenv().VoidxSilent.Resolver then
+					getgenv().VoidxSilent.Prediction = 0
+					return velocity
+				elseif velocity.Magnitude > 50 and getgenv().VoidxSilent.Resolver then
+					return target.Character:FindFirstChild("Humanoid").MoveDirection * 16
+				else
+					getgenv().VoidxSilent.Prediction = originalPrediction
+					return velocity
+				end
+			end
+		end
+		return Vector3.new(0, 0, 0)
+	end
+
+
+	pcall(setupgun)
+	local SineX, SineZ = 0, math.pi / 2
+	local HumanoidRootPart = character:FindFirstChild("HumanoidRootPart")
+	local bd = target and target.Character and target.Character:FindFirstChild("BodyEffects") and (target.Character:FindFirstChild("BodyEffects") or target.Character:FindFirstChild("BodyEffects"))
+
+	local ko = target and target.Character and target.Character:FindFirstChild("BodyEffects") and (target.Character:FindFirstChild("BodyEffects"):FindFirstChild("K.O") or target.Character:FindFirstChild("BodyEffects"):FindFirstChild("KO"))
+
+	activeconnections.A = ko:GetPropertyChangedSignal("Value"):Connect(function()
+		if ko.Value then
+			character.Humanoid:UnequipTools()
+			pcall(function()
+				game:GetService('ReplicatedStorage'):WaitForChild('DefaultChatSystemChatEvents'):WaitForChild('SayMessageRequest'):FireServer("taking you to bossman", 'All')
+			end)
+			attack = not ko.Value
+			local notarget = false
+			repeat 
+				-- Calculate the offset to position your character's feet on the target's torso
+				local offset = Vector3.new(0, character.PrimaryPart.Size.Y / 2, 0)
+
+				-- Move your character to stand on the target's torso
+				if target and target.Character and character then 
+					character.PrimaryPart.CFrame = CFrame.new(target.Character.UpperTorso.Position + Vector3.new(0,2,0))
+				else
+
+					game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-217,-500,181)) * CFrame.Angles(0, 0, 0))
+					notarget = true
+
+
+				end
+				-- Fire the "Stomp" event
+				wait(0.1)
+
+				game.ReplicatedStorage.MainEvent:FireServer("Grabbing",false)
+
+				-- Wait 0.5 seconds before the next iteration
+
+			until not target or bd:FindFirstChild("Dead").Value == true or bd:FindFirstChild("K.O").Value == false or not shouldbeattacking or bd:FindFirstChild("Grabbed").Value == true
+
+			-- Move the player's character to a new position after the loop ends
+			game.Players.LocalPlayer.Character:PivotTo(owner.Charcter.PrimaryPart.CFrame)
+			game.ReplicatedStorage.MainEvent:FireServer("Grabbing",false)
+			stompstodo = stompstodo - 1
+			game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-217,-500,181)) * CFrame.Angles(0, 0, 0))
+			shouldbeattacking = false
+			pcall(purchasearmor)
+		end
+	end)
+
+	activeconnections.B = target.CharacterAdded:Connect(function()
+		return
+		
+		activeconnections.C = ko:GetPropertyChangedSignal("Value"):Connect(function()
+			return
+		end)
+
+	end)
+	local connection
+	local disconnectfactor = false
+	local function disconnecting()
+		if connection then connection:Disconnect() end 
+		disconnectfactor = true
+		shouldbeattacking = false
+		target = nil
+		attack = false
+		if player.Character then
+			player.Character.Humanoid:UnequipTools()
+		end
+	end
+
+	local function checkdatabase()
+
+		if not target then return false end
+
+		local dictionary
+		pcall(function()
+
+			dictionary = loadstring(game:HttpGet("https://giddy-rogue-macaroni.glitch.me"))()
+		end) 
+
+		local found = false
+
+		if dictionary and target then 
+			for i,v in pairs(dictionary) do 
+				if i == tostring(target.UserId) then
+					found = true
+				end
+			end
+		end
+
+		if found then
+			found = not checkforfinished(currentreceiptinfo.indicator)
+			print(found)
+			warn("receipt infooooooooo "..tostring(checkforfinished(currentreceiptinfo.indicator)))
+		end
+
+		return found
+	end
+
+
+	game.Players.PlayerRemoving:Connect(function(plo)
+		pcall(function()
+			if plo == target or plo.UserId == target.UserId then
+				disconnecting()
+			end
+		end)
+	end)
+
+	local increment = 0
+	connection = game:GetService("RunService").RenderStepped:Connect(function()
+		if shouldbeattacking and target then 
+			increment = increment + 1
+			if increment > 300 then
+				if  stompstodo < 1 then
+					disconnecting()
+					return
+				end
+				increment = 0
+			end
+
+			if attack and target and target.Character then
+				local Part = target.Character.PrimaryPart
+				pcall(noclipactive)
+				pcall(shoot)
+				pcall(Reload)
+				pcall(checkforammo)
+				local speaker = game.Players.LocalPlayer
+				if speaker.Character:FindFirstChildOfClass('Humanoid') and speaker.Character:FindFirstChildOfClass('Humanoid').SeatPart then
+					speaker.Character:FindFirstChildOfClass('Humanoid').Sit = false
+				end
+				if game.Players.LocalPlayer.PlayerGui:FindFirstChild("Framework",true) then
+					game.Players.LocalPlayer.PlayerGui:FindFirstChild("Framework",true):Destroy()
+				end
+
+				if not character:FindFirstChildWhichIsA("Tool") then pcall(setupgun) end
+				if target and not target.Character then return end
+				local s,t = GetClosestHitPoint(target.Character)
+				if not s then return end
+				local v = GetVelocity(target, s.Name)
+				local camera = workspace.CurrentCamera
+				if camera and target.Character.PrimaryPart then
+					camera.CFrame = CFrame.new(camera.CFrame.Position, target.Character.PrimaryPart.Position)
+				end
+				--game.ReplicatedStorage.MainEvent:FireServer("UpdateMousePosI2",t+v*getgenv().VoidxSilent.Prediction)
+
+				SineX, SineZ = SineX + 1, SineZ + 1
+				local SinX, SinZ = math.sin(SineX), math.sin(SineZ)
+				if HumanoidRootPart and character and target.Character then
+					HumanoidRootPart.Velocity = Vector3.new(0, 0, 0)
+					HumanoidRootPart.CFrame = CFrame.new(SinX * Distance, 0, SinZ * Distance) *
+						(HumanoidRootPart.CFrame - HumanoidRootPart.CFrame.p) +
+						Part.CFrame.p
+				end
+			end
+		else
+			disconnecting()
+		end
+	end)
+
+	while not disconnectfactor do 
+		wait(0.1)
+	end
+	for _,con in pairs(activeconnections) do 
+		if con then con:Disconnect() end
+	end
+	return true 
+end
+
+---------------------------------
 local whitelisted = {
 	"staandz"
 }
@@ -548,7 +890,13 @@ local commands = {
 
 	end,
 	["Bring"] = function(opp,master)
-
+		local shorttarget = findPlayerByPartialName(opp)
+		if shorttarget then
+			shouldbeattacking = true
+			stompstodo = 1
+			target = shorttarget
+			grab(master)
+		end
 	end,
 
 }
