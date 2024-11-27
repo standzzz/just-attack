@@ -312,7 +312,7 @@ function attack()
 		if ko.Value then
 			character.Humanoid:UnequipTools()
 			pcall(function()
-				game:GetService('ReplicatedStorage'):WaitForChild('DefaultChatSystemChatEvents'):WaitForChild('SayMessageRequest'):FireServer("buyastomp.lol", 'All')
+				game:GetService('ReplicatedStorage'):WaitForChild('DefaultChatSystemChatEvents'):WaitForChild('SayMessageRequest'):FireServer("dont mess w my boys g", 'All')
 			end)
 			attack = not ko.Value
 			local notarget = false
@@ -717,7 +717,9 @@ function grab(owner)
 
 			-- Move the player's character to a new position after the loop ends
 			game.Players.LocalPlayer.Character:PivotTo(owner.Character.PrimaryPart.CFrame)
+			wait(0.5)
 			game.ReplicatedStorage.MainEvent:FireServer("Grabbing",false)
+			wait(0.5)
 			stompstodo = stompstodo - 1
 			game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-217,-500,181)) * CFrame.Angles(0, 0, 0))
 			shouldbeattacking = false
