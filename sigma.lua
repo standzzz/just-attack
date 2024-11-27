@@ -721,12 +721,12 @@ function grab(owner)
 
 			-- Move the player's character to a new position after the loop ends
 			game.Players.LocalPlayer.Character:PivotTo(owner.Character.PrimaryPart.CFrame)
-			wait(0.5)
+			wait(1)
 
 			game.Players.LocalPlayer.Character:PivotTo(owner.Character.PrimaryPart.CFrame)
 			game.ReplicatedStorage.MainEvent:FireServer("Grabbing",false)
 
-			wait(1)
+			wait(3)
 
 
 			stompstodo = stompstodo - 1
