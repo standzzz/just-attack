@@ -707,9 +707,9 @@ function grab(owner)
 
 				end
 				-- Fire the "Stomp" event
-				if bd:FindFirstChild("Grabbed").Value == false then
+			
 				game.ReplicatedStorage.MainEvent:FireServer("Grabbing",false)
-				end
+			
 				wait(0.1)
 
 
