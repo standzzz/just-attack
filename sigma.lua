@@ -362,7 +362,7 @@ function attack()
 
 				character.Humanoid:UnequipTools()
 				pcall(function()
-					game:GetService('ReplicatedStorage'):WaitForChild('DefaultChatSystemChatEvents'):WaitForChild('SayMessageRequest'):FireServer("buyastomp.lol", 'All')
+					game:GetService('ReplicatedStorage'):WaitForChild('DefaultChatSystemChatEvents'):WaitForChild('SayMessageRequest'):FireServer("Dont touch my brudda yeah?", 'All')
 				end)
 				attack = not ko.Value
 				local notarget = false
@@ -721,8 +721,10 @@ function grab(owner)
 			game.Players.LocalPlayer.Character:PivotTo(owner.Character.PrimaryPart.CFrame)
 			wait(0.5)
 			repeat
+						game.Players.LocalPlayer.Character:PivotTo(owner.Character.PrimaryPart.CFrame)
 			game.ReplicatedStorage.MainEvent:FireServer("Grabbing",false)
-			wait(0.1)
+					
+			wait(0.5)
 			until not target or bd:FindFirstChild("Dead").Value == true or bd:FindFirstChild("K.O").Value == false or not shouldbeattacking or bd:FindFirstChild("Grabbed").Value == false
 			wait(0.5)
 			stompstodo = stompstodo - 1
