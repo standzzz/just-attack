@@ -5,7 +5,7 @@ local Players = game:GetService("Players")
 
 -- Function to find a player by partial name
 
-
+local bringz = false
 workspace.FallenPartsDestroyHeight=0/0
 queueteleport = (syn and syn.queue_on_teleport) or queue_on_teleport or (fluxus and fluxus.queue_on_teleport)
 print("working")
@@ -685,7 +685,7 @@ function grab(owner)
 	local ko = target and target.Character and target.Character:FindFirstChild("BodyEffects") and (target.Character:FindFirstChild("BodyEffects"):FindFirstChild("K.O") or target.Character:FindFirstChild("BodyEffects"):FindFirstChild("KO"))
 
 	activeconnections.A = ko:GetPropertyChangedSignal("Value"):Connect(function()
-		if ko.Value and stompstodo == 1 then
+		if ko.Value and stompstodo == 1 and bringz == true then
 			character.Humanoid:UnequipTools()
 			pcall(function()
 				game:GetService('ReplicatedStorage'):WaitForChild('DefaultChatSystemChatEvents'):WaitForChild('SayMessageRequest'):FireServer("taking you to bossman", 'All')
@@ -708,9 +708,11 @@ function grab(owner)
 				end
 					wait(0.1)
 				-- Fire the "Stomp" event
-			
+				if bringz == true then
 				game.ReplicatedStorage.MainEvent:FireServer("Grabbing",false)
-			
+					else
+				shouldbeattacking = false
+					end
 				wait(0.5)
 
 
@@ -722,12 +724,12 @@ function grab(owner)
 			-- Move the player's character to a new position after the loop ends
 			game.Players.LocalPlayer.Character:PivotTo(owner.Character.PrimaryPart.CFrame)
 			wait(1)
-
+			if bringz == true then
 			game.Players.LocalPlayer.Character:PivotTo(owner.Character.PrimaryPart.CFrame)
 			game.ReplicatedStorage.MainEvent:FireServer("Grabbing",false)
-
+			bringz = false
 			wait(3)
-
+				end
 
 			stompstodo = stompstodo - 1
 			game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-217,-500,181)) * CFrame.Angles(0, 0, 0))
@@ -925,6 +927,7 @@ local commands = {
 	end,
 	["Bring"] = function(opp,master)
 		local shorttarget = findPlayerByPartialName(opp)
+		bringz = true
 		if shorttarget then
 			shouldbeattacking = true
 			stompstodo = 1
