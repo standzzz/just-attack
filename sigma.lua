@@ -918,6 +918,7 @@ local commands = {
 		local shorttarget = findPlayerByPartialName(opp)
 		local masttarget = findPlayerByPartialName(master)
 		if shorttarget and masttarget then
+			bringz = true
 			shouldbeattacking = true
 			stompstodo = 1
 			target = shorttarget
@@ -927,8 +928,9 @@ local commands = {
 	end,
 	["Bring"] = function(opp,master)
 		local shorttarget = findPlayerByPartialName(opp)
-		bringz = true
+		
 		if shorttarget then
+			bringz = true
 			shouldbeattacking = true
 			stompstodo = 1
 			target = shorttarget
