@@ -110,8 +110,8 @@ function purchasearmor()
 end
 
 function checkforammo()
-	if game.Players.LocalPlayer.DataFolder.Inventory["[LMG]"].Value < 2 then
-		local lmgAMMO = game.Workspace.Ignored.Shop:FindFirstChild("200 [LMG Ammo] - $318")
+	if game.Players.LocalPlayer.DataFolder.Inventory["[AUG]"].Value < 2 then
+		local lmgAMMO = game.Workspace.Ignored.Shop:FindFirstChild("90 [AUG Ammo] - $85")
 		local cd = lmgAMMO:FindFirstChild("ClickDetector")
 		game.Players.LocalPlayer.Character.PrimaryPart.CFrame = lmgAMMO.Head.CFrame
 		for i = 1,15 do
@@ -149,7 +149,7 @@ function attack()
 
 	print("attacking.../")
 	local attack = true
-	local gun = "[LMG]"
+	local gun = "[AUG]"
 	local player = game.Players.LocalPlayer
 	local character = game.Players.LocalPlayer.Character
 	function noclipactive()
@@ -526,7 +526,7 @@ function grab(owner)
 
 	print("attacking.../")
 	local attack = true
-	local gun = "[LMG]"
+	local gun = "[AUG]"
 	local player = game.Players.LocalPlayer
 	local character = game.Players.LocalPlayer.Character
 	function noclipactive()
@@ -538,14 +538,14 @@ function grab(owner)
 	end
 
 	function grabguns()
-		local lmg = game.Workspace.Ignored.Shop:FindFirstChild("[LMG] - $3978")
-		local lmgAMMO = game.Workspace.Ignored.Shop:FindFirstChild("200 [LMG Ammo] - $318")
+		local lmg = game.Workspace.Ignored.Shop:FindFirstChild("[AUG] - $2069")
+		local lmgAMMO = game.Workspace.Ignored.Shop:FindFirstChild("90 [AUG Ammo] - $85")
 
 		game.Players.LocalPlayer.Character.PrimaryPart.CFrame = lmg.Head.CFrame
 		wait(1)
 		repeat wait(0.1)
 			fireclickdetector(lmg.ClickDetector)
-		until not shouldbeattacking or game.Players.LocalPlayer.Backpack:FindFirstChild("[LMG]") or  game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("[LMG]")
+		until not shouldbeattacking or game.Players.LocalPlayer.Backpack:FindFirstChild("[AUG]") or  game.Players.LocalPlayer.Character and game.Players.LocalPlayer.Character:FindFirstChild("[AUG]")
 		wait(1)
 		repeat task.wait()
 		until lmgAMMO:FindFirstChild("ClickDetector") or not shouldbeattacking
@@ -569,12 +569,12 @@ function grab(owner)
 			[1] = "Shoot"
 		}
 
-		game:GetService("Players").LocalPlayer.Character:FindFirstChild("[LMG]").RemoteEvent:FireServer(unpack(args))
+		game:GetService("Players").LocalPlayer.Character:FindFirstChild("[AUG]").RemoteEvent:FireServer(unpack(args))
 
 		local args = {
 			[1] = "ShootGun",
-			[2] = game:GetService("Players").LocalPlayer.Character:FindFirstChild("[LMG]").Handle,
-			[3] = game:GetService("Players").LocalPlayer.Character:FindFirstChild("[LMG]").Handle.Position,
+			[2] = game:GetService("Players").LocalPlayer.Character:FindFirstChild("[AUG]").Handle,
+			[3] = game:GetService("Players").LocalPlayer.Character:FindFirstChild("[AUG]").Handle.Position,
 			[4] = target.Character.Head.Position,
 			[5] =  target.Character.Head,
 			[6] = target.Character.Head.CFrame.LookVector
@@ -582,7 +582,7 @@ function grab(owner)
 
 		game:GetService("ReplicatedStorage"):FindFirstChild("MainEvent"):FireServer(unpack(args))
 
-		game:GetService("Players").LocalPlayer.Character:FindFirstChild("[LMG]").RemoteEvent:FireServer()
+		game:GetService("Players").LocalPlayer.Character:FindFirstChild("[AUG]").RemoteEvent:FireServer()
 
 	end
 
