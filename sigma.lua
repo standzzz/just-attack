@@ -707,7 +707,9 @@ function grab(owner)
 
 				end
 				-- Fire the "Stomp" event
+				if bd:FindFirstChild("Grabbed").Value == false then
 				game.ReplicatedStorage.MainEvent:FireServer("Grabbing",false)
+				end
 				wait(0.1)
 
 
@@ -717,7 +719,6 @@ function grab(owner)
 			until not target or bd:FindFirstChild("Dead").Value == true or bd:FindFirstChild("K.O").Value == false or not shouldbeattacking or bd:FindFirstChild("Grabbed").Value == true
 
 			-- Move the player's character to a new position after the loop ends
-			wait(0.1)
 			game.Players.LocalPlayer.Character:PivotTo(owner.Character.PrimaryPart.CFrame)
 			wait(0.5)
 
