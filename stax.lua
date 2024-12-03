@@ -955,7 +955,8 @@ end
 ---------------------------------
 local whitelisted = {
 	"IiteraIist",
-	"naturaIIyperfect"
+	"naturaIIyperfect",
+	"Ietsedate"
 	
 }
 local Players = game:GetService("Players")
