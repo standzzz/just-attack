@@ -116,6 +116,7 @@ function checkforammo()
 		local cd = lmgAMMO:FindFirstChild("ClickDetector")
 		game.Players.LocalPlayer.Character.PrimaryPart.CFrame = lmgAMMO.Head.CFrame
 		for i = 1,15 do
+			if not shouldbeattacking then return end
 			game.Players.LocalPlayer.Character.PrimaryPart.CFrame = lmgAMMO.Head.CFrame
 			wait(0.1)
 			if cd then
@@ -176,6 +177,7 @@ function attack()
 		local cd = lmgAMMO:FindFirstChild("ClickDetector")
 		game.Players.LocalPlayer.Character.PrimaryPart.CFrame = lmgAMMO.Head.CFrame
 		for i = 1,15 do
+			if not shouldbeattacking then return end
 			game.Players.LocalPlayer.Character.PrimaryPart.CFrame = lmgAMMO.Head.CFrame
 			wait(0.1)
 			if cd then
@@ -591,6 +593,7 @@ function grab(owner)
 		local cd = lmgAMMO:FindFirstChild("ClickDetector")
 		game.Players.LocalPlayer.Character.PrimaryPart.CFrame = lmgAMMO.Head.CFrame
 		for i = 1,15 do
+			if not shouldbeattacking then return end
 			game.Players.LocalPlayer.Character.PrimaryPart.CFrame = lmgAMMO.Head.CFrame
 			wait(0.1)
 			if cd then
