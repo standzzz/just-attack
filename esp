@@ -1,42 +1,75 @@
 local nameState = true
 local localPlayer = game.Players.LocalPlayer
 local CurrentCamera = workspace.CurrentCamera
-local camera = game:GetService("Workspace").CurrentCamera
-local HeadOff = Vector3.new(0,1,0) --the 1 here is the height of the name esp
-local worldToViewportPoint = CurrentCamera.worldToViewportPoint
+local HeadOff = Vector3.new(0, 1.5, 0) -- Adjusted height for better readability
 
-function esp_function(v)
-	local text = Drawing.new("Text")
-	text.Visible = false
-	text.Center = true
-	text.Outline = true
-	text.Font = 2
-	text.Color = Color3.new(1,1,1)
-	text.Size = 13
-	game:GetService("RunService").RenderStepped:Connect(function()
-		if v.Character ~= nil and v.Character:FindFirstChild("Humanoid") and v.Character:FindFirstChild("HumanoidRootPart") ~= nil and v ~= localPlayer and v.Character.Humanoid.Health > 0 then
+function createESP(player)
+    local text = Drawing.new("Text")
+    text.Visible = false
+    text.Center = true
+    text.Outline = false -- Disabled outline
+    text.Font = 3 -- Changed to a clearer font
+    text.Color = Color3.new(1, 1, 1)
+    text.Size = 17 -- Increased size for better readability
 
-			local Head = v.Character.Head
-			local Vector, onScreen = camera:worldToViewportPoint(v.Character.HumanoidRootPart.Position)
-			local HeadPosition = worldToViewportPoint(CurrentCamera, Head.Position + HeadOff)
-			if onScreen then
-				text.Position = Vector2.new(HeadPosition.X, HeadPosition.Y)
-				text.Text = v.Name
-				text.Visible = nameState
-			else
-				text.Visible = false
-			end
-		else
-			text.Visible = false
-		end
+    local dropShadow = Drawing.new("Text") -- Create subtle drop shadow
+    dropShadow.Visible = false
+    dropShadow.Center = true
+    dropShadow.Outline = false
+    dropShadow.Font = 3 -- Match font with main text
+    dropShadow.Color = Color3.new(0, 0, 0) -- Black color for shadow
+    dropShadow.Size = 17
+    dropShadow.Transparency = 0.5
 
-	end)
+    local function update()
+        if player.Character and player.Character:FindFirstChild("Humanoid") and player.Character:FindFirstChild("HumanoidRootPart") and player ~= localPlayer then
+            local humanoid = player.Character.Humanoid
+            if humanoid.Health > 0 then
+                local head = player.Character:FindFirstChild("Head")
+                if head then
+                    local headPosition, onScreen = CurrentCamera:WorldToViewportPoint(head.Position + HeadOff)
+                    if onScreen then
+                        text.Position = Vector2.new(headPosition.X, headPosition.Y)
+                        text.Text = player.Name
+                        text.Visible = nameState
+
+                        dropShadow.Position = text.Position + Vector2.new(1, 1) -- Subtle offset for shadow
+                        dropShadow.Text = text.Text
+                        dropShadow.Visible = nameState
+                    else
+                        text.Visible = false
+                        dropShadow.Visible = false
+                    end
+                end
+            else
+                text.Visible = false
+                dropShadow.Visible = false
+            end
+        else
+            text.Visible = false
+            dropShadow.Visible = false
+        end
+    end
+
+    game:GetService("RunService").RenderStepped:Connect(update)
+
+    player.CharacterRemoving:Connect(function()
+        text:Remove() -- Clean up when character is removed
+        dropShadow:Remove()
+    end)
 end
 
-for i, v in pairs(game.Players:GetChildren()) do
-	coroutine.wrap(esp_function)(v)
+-- Add ESP for all current players
+for _, player in pairs(game.Players:GetPlayers()) do
+    if player ~= localPlayer then
+        createESP(player)
+    end
 end
 
-game.Players.PlayerAdded:Connect(function()
-	coroutine.wrap(esp_function)(v)
+-- Add ESP for players who join later
+game.Players.PlayerAdded:Connect(function(player)
+    if player ~= localPlayer then
+        player.CharacterAdded:Wait() -- Wait for character to load
+        createESP(player)
+    end
 end)
