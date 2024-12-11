@@ -1,0 +1,42 @@
+local nameState = true
+local localPlayer = game.Players.LocalPlayer
+local CurrentCamera = workspace.CurrentCamera
+local camera = game:GetService("Workspace").CurrentCamera
+local HeadOff = Vector3.new(0,1,0) --the 1 here is the height of the name esp
+local worldToViewportPoint = CurrentCamera.worldToViewportPoint
+
+function esp_function(v)
+	local text = Drawing.new("Text")
+	text.Visible = false
+	text.Center = true
+	text.Outline = true
+	text.Font = 2
+	text.Color = Color3.new(1,1,1)
+	text.Size = 13
+	game:GetService("RunService").RenderStepped:Connect(function()
+		if v.Character ~= nil and v.Character:FindFirstChild("Humanoid") and v.Character:FindFirstChild("HumanoidRootPart") ~= nil and v ~= localPlayer and v.Character.Humanoid.Health > 0 then
+
+			local Head = v.Character.Head
+			local Vector, onScreen = camera:worldToViewportPoint(v.Character.HumanoidRootPart.Position)
+			local HeadPosition = worldToViewportPoint(CurrentCamera, Head.Position + HeadOff)
+			if onScreen then
+				text.Position = Vector2.new(HeadPosition.X, HeadPosition.Y)
+				text.Text = v.Name
+				text.Visible = nameState
+			else
+				text.Visible = false
+			end
+		else
+			text.Visible = false
+		end
+
+	end)
+end
+
+for i, v in pairs(game.Players:GetChildren()) do
+	coroutine.wrap(esp_function)(v)
+end
+
+game.Players.PlayerAdded:Connect(function()
+	coroutine.wrap(esp_function)(v)
+end)
