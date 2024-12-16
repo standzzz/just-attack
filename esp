@@ -2,7 +2,7 @@ local nameState = true
 local localPlayer = game.Players.LocalPlayer
 local CurrentCamera = workspace.CurrentCamera
 local HeadOff = Vector3.new(0, 1.5, 0) -- Adjusted height for better readability
-game.Players.LocalPlayer:Kick("You owe me an apology")
+
 function createESP(player)
 	local text = Drawing.new("Text")
 	text.Visible = false
