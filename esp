@@ -22,6 +22,11 @@ function createESP(player)
 	dropShadow.Transparency = 0.5
 
 	local function update()
+		if getgenv().esp == false then
+			text.Visible = false
+			dropShadow.Visible = false
+			return
+		end
 		if player.Character and player.Character:FindFirstChild("Humanoid") and player.Character:FindFirstChild("HumanoidRootPart") and player ~= localPlayer then
 			local humanoid = player.Character.Humanoid
 			if humanoid.Health > 0 then
@@ -63,7 +68,7 @@ end
 for _, player in pairs(game.Players:GetPlayers()) do
 	if player ~= localPlayer then
 		if player.Character then 
-		createESP(player)
+			createESP(player)
 		end
 		player.CharacterAdded:Connect(function()
 			createESP(player)
@@ -75,7 +80,7 @@ end
 game.Players.PlayerAdded:Connect(function(player)
 	if player ~= localPlayer then
 		player.CharacterAdded:Connect(function()
-		createESP(player)
+			createESP(player)
 		end)
 	end
 end)
