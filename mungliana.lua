@@ -118,7 +118,7 @@ end
 
 function checkforammo()
 	if game.Players.LocalPlayer.DataFolder.Inventory["[Rifle]"].Value < 2 then
-		local lmgAMMO = game.Workspace.Ignored.Shop:FindFirstChild("90 [AUG Ammo] - $85")
+		local lmgAMMO = game.Workspace.Ignored.Shop:FindFirstChild("5 [Rifle Ammo] - $265")
 		local cd = lmgAMMO:FindFirstChild("ClickDetector")
 		game.Players.LocalPlayer.Character.PrimaryPart.CFrame = lmgAMMO.Head.CFrame
 		for i = 1,15 do
@@ -170,7 +170,7 @@ function attack()
 
 	function grabguns()
 		local lmg = game.Workspace.Ignored.Shop:FindFirstChild("[Rifle] - $1644")
-		local lmgAMMO = game.Workspace.Ignored.Shop:FindFirstChild("90 [AUG Ammo] - $85")
+		local lmgAMMO = game.Workspace.Ignored.Shop:FindFirstChild("5 [Rifle Ammo] - $265")
 
 		game.Players.LocalPlayer.Character.PrimaryPart.CFrame = lmg.Head.CFrame
 		wait(1)
@@ -592,7 +592,7 @@ function grab(owner)
 
 	function grabguns()
 		local lmg = game.Workspace.Ignored.Shop:FindFirstChild("[Rifle] - $1644")
-		local lmgAMMO = game.Workspace.Ignored.Shop:FindFirstChild("90 [AUG Ammo] - $85")
+		local lmgAMMO = game.Workspace.Ignored.Shop:FindFirstChild("5 [Rifle Ammo] - $265")
 
 		game.Players.LocalPlayer.Character.PrimaryPart.CFrame = lmg.Head.CFrame
 		wait(1)
