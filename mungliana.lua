@@ -998,7 +998,7 @@ end
 
 ---------------------------------
 local whitelisted = {
-	"bodydecayed",
+	"soldsoldsoldsoldxd",
 	"friendzonevictim",
     "disturb",
 	"Ietsedate"
