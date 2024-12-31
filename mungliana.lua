@@ -1001,6 +1001,7 @@ local whitelisted = {
 	"soldsoldsoldsoldxd",
 	"friendzonevictim",
     "disturb",
+	"user615734",
 	"Ietsedate"
 
 }
