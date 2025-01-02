@@ -1,7 +1,7 @@
 
 
 
-print("Hello world!")
+
 local Players = game:GetService("Players")
 
 -- Function to find a player by partial name
@@ -9,7 +9,7 @@ local character = game.Players.LocalPlayer.Character
 local bringz = false
 workspace.FallenPartsDestroyHeight=0/0
 queueteleport = (syn and syn.queue_on_teleport) or queue_on_teleport or (fluxus and fluxus.queue_on_teleport)
-print("working")
+
 local currentreceiptinfo = {
 	action = "receipt",
 	message = "blablabla",
@@ -66,10 +66,10 @@ local function glitchcommunication(action2,message2,info)
 	})
 
 	if response.StatusCode == 200 then
-		print("Data posted successfully:", response.Body)
+		
 		return response.Body
 	else
-		warn("Failed to post data:", response.StatusMessage)
+		
 		return false
 	end
 end
@@ -87,16 +87,16 @@ function checkforfinished(code)
 
 	end)
 
-	if error then print(error) end
-	if success then print("got data") end
+	
+	
 	data = game:GetService("HttpService"):JSONDecode(data)
-	print(data)
+
 	local found = false
 	for i,v in pairs(data) do  
 
 		if i == code then 
 			found = true
-			print("found code!!!!!!!!!!!!!!!!!!!!!!!!!!")
+			
 		end
 	end
 	return found
@@ -118,7 +118,7 @@ end
 
 function checkforammo()
 	if game.Players.LocalPlayer.DataFolder.Inventory["[Rifle]"].Value < 2 then
-		local lmgAMMO = game.Workspace.Ignored.Shop:FindFirstChild("5 [Rifle Ammo] - $265")
+		local lmgAMMO = game.Workspace.Ignored.Shop:FindFirstChild("5 [Rifle Ammo] - $273")
 		local cd = lmgAMMO:FindFirstChild("ClickDetector")
 		game.Players.LocalPlayer.Character.PrimaryPart.CFrame = lmgAMMO.Head.CFrame
 		for i = 1,15 do
@@ -155,7 +155,7 @@ function attack()
 	end
 	pred = 0
 
-	print("attacking.../")
+
 	local attack = true
 	local gun = "[Rifle]"
 	local player = game.Players.LocalPlayer
@@ -169,8 +169,8 @@ function attack()
 	end
 
 	function grabguns()
-		local lmg = game.Workspace.Ignored.Shop:FindFirstChild("[Rifle] - $1644")
-		local lmgAMMO = game.Workspace.Ignored.Shop:FindFirstChild("5 [Rifle Ammo] - $265")
+		local lmg = game.Workspace.Ignored.Shop:FindFirstChild("[Rifle] - $1694")
+		local lmgAMMO = game.Workspace.Ignored.Shop:FindFirstChild("5 [Rifle Ammo] - $273")
 
 		game.Players.LocalPlayer.Character.PrimaryPart.CFrame = lmg.Head.CFrame
 		wait(1)
@@ -478,8 +478,8 @@ function attack()
 
 		if found then
 			found = not checkforfinished(currentreceiptinfo.indicator)
-			print(found)
-			warn("receipt infooooooooo "..tostring(checkforfinished(currentreceiptinfo.indicator)))
+		
+			
 		end
 
 		return found
@@ -577,7 +577,7 @@ function grab(owner)
 	end
 	pred = 0
 
-	print("attacking.../")
+
 	local attack = true
 	local gun = "[Rifle]"
 	local player = game.Players.LocalPlayer
@@ -591,8 +591,8 @@ function grab(owner)
 	end
 
 	function grabguns()
-		local lmg = game.Workspace.Ignored.Shop:FindFirstChild("[Rifle] - $1644")
-		local lmgAMMO = game.Workspace.Ignored.Shop:FindFirstChild("5 [Rifle Ammo] - $265")
+		local lmg = game.Workspace.Ignored.Shop:FindFirstChild("[Rifle] - $1694")
+		local lmgAMMO = game.Workspace.Ignored.Shop:FindFirstChild("5 [Rifle Ammo] - $273")
 
 		game.Players.LocalPlayer.Character.PrimaryPart.CFrame = lmg.Head.CFrame
 		wait(1)
@@ -920,8 +920,7 @@ function grab(owner)
 
 		if found then
 			found = not checkforfinished(currentreceiptinfo.indicator)
-			print(found)
-			warn("receipt infooooooooo "..tostring(checkforfinished(currentreceiptinfo.indicator)))
+			
 		end
 
 		return found
@@ -1137,15 +1136,15 @@ end
 for i,v in pairs(game.Players:GetPlayers()) do
 	if table.find(whitelisted,v.Name) then
 		v.Chatted:Connect(function(Message)
-			print(Message)
+			
 			if string.sub(Message,1,1) == prefix then
 				local command = string.sub(Message,2,#Message)
-				print(command)
+			
 				local args = string.split(command," ")
 				local command = args[1]
 				local opp = args[2]
 				local d = args[3]
-				print(opp)
+				
 				if command == "Whitelist" then
 					whitelist(opp)
 				end
