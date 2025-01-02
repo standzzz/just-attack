@@ -1001,7 +1001,8 @@ local whitelisted = {
 	"friendzonevictim",
     "disturb",
 	"user615734",
-	"Ietsedate"
+	"Ietsedate",
+	"staandz"
 
 }
 local Players = game:GetService("Players")
