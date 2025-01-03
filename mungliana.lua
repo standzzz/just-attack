@@ -106,9 +106,7 @@ end
 
 local shouldbeattacking = true
 local target 
-pcall(function()
-game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-217,-500,181)) * CFrame.Angles(0, 0, 0))
-	end)
+
 function purchasearmor()
 	local armor = game.Workspace.Ignored.Shop:FindFirstChild("[Medium Armor] - $1066")
 	pcall(function()
@@ -1186,3 +1184,8 @@ game.Players.PlayerAdded:Connect(function(v)
 		end)
 	end
 end)
+
+
+game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):ChangeState(Enum.HumanoidStateType.Dead)
+
+-- version 2
