@@ -106,29 +106,41 @@ end
 
 local shouldbeattacking = true
 local target 
+pcall(function()
 game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-217,-500,181)) * CFrame.Angles(0, 0, 0))
+	end)
 function purchasearmor()
 	local armor = game.Workspace.Ignored.Shop:FindFirstChild("[Medium Armor] - $1066")
+	pcall(function()
 	game.Players.LocalPlayer.Character.PrimaryPart.CFrame = armor:FindFirstChild("Head").CFrame
 	wait(0.5)
+		end)
 	fireclickdetector(armor:FindFirstChild("ClickDetector"))
 	wait(0.5)
+	pcall(function()
 	game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-217,-500,181)) * CFrame.Angles(0, 0, 0))
+		end)
 end
 
 function checkforammo()
 	if game.Players.LocalPlayer.DataFolder.Inventory["[Rifle]"].Value < 2 then
 		local lmgAMMO = game.Workspace.Ignored.Shop:FindFirstChild("5 [Rifle Ammo] - $273")
 		local cd = lmgAMMO:FindFirstChild("ClickDetector")
+		pcall(function()
 		game.Players.LocalPlayer.Character.PrimaryPart.CFrame = lmgAMMO.Head.CFrame
+			end)
 		for i = 1,15 do
 			if not shouldbeattacking then return end
+			pcall(function()
 			game.Players.LocalPlayer.Character.PrimaryPart.CFrame = lmgAMMO.Head.CFrame
+				end)
 			wait(0.1)
 			if cd then
 				fireclickdetector(cd)
 			end
+			pcall(function()
 			game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-217,-500,181)) * CFrame.Angles(0, 0, 0))
+				end)
 			wait(0.05)
 		end
 	end
@@ -159,7 +171,7 @@ function attack()
 	local attack = true
 	local gun = "[Rifle]"
 	local player = game.Players.LocalPlayer
-	local character = game.Players.LocalPlayer.Character
+	local character = player.Character or player.CharacterAdded:Wait()
 	function noclipactive()
 		for i,v in pairs(character:GetChildren()) do
 			if v:IsA("BasePart") then
