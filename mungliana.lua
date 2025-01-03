@@ -66,10 +66,10 @@ local function glitchcommunication(action2,message2,info)
 	})
 
 	if response.StatusCode == 200 then
-		
+
 		return response.Body
 	else
-		
+
 		return false
 	end
 end
@@ -87,8 +87,8 @@ function checkforfinished(code)
 
 	end)
 
-	
-	
+
+
 	data = game:GetService("HttpService"):JSONDecode(data)
 
 	local found = false
@@ -96,7 +96,7 @@ function checkforfinished(code)
 
 		if i == code then 
 			found = true
-			
+
 		end
 	end
 	return found
@@ -478,8 +478,8 @@ function attack()
 
 		if found then
 			found = not checkforfinished(currentreceiptinfo.indicator)
-		
-			
+
+
 		end
 
 		return found
@@ -522,9 +522,7 @@ function attack()
 
 				if not character:FindFirstChildWhichIsA("Tool") then pcall(setupgun) end
 				if target and not target.Character then return end
-				local s,t = GetClosestHitPoint(target.Character)
-				if not s then return end
-				local v = GetVelocity(target, s.Name)
+				if not target then return end
 				local camera = workspace.CurrentCamera
 				if camera and target.Character.PrimaryPart then
 					camera.CFrame = CFrame.new(camera.CFrame.Position, target.Character.PrimaryPart.Position)
@@ -675,12 +673,12 @@ function grab(owner)
 			character.Humanoid:EquipTool(tool)
 			game.ReplicatedStorage.MainEvent:FireServer("Reload",tool)
 			wait(2)
-			shoot()
+			pcall(shoot())
 			tool.Ammo.Changed:Connect(function()
 				if tool.Ammo.Value < 1 then
 					game.ReplicatedStorage.MainEvent:FireServer("Reload",tool)
 				else
-					shoot()
+					pcall(shoot())
 				end
 
 
@@ -920,7 +918,7 @@ function grab(owner)
 
 		if found then
 			found = not checkforfinished(currentreceiptinfo.indicator)
-			
+
 		end
 
 		return found
@@ -963,9 +961,7 @@ function grab(owner)
 
 				if not character:FindFirstChildWhichIsA("Tool") then pcall(setupgun) end
 				if target and not target.Character then return end
-				local s,t = GetClosestHitPoint(target.Character)
-				if not s then return end
-				local v = GetVelocity(target, s.Name)
+				if not target then return end
 				local camera = workspace.CurrentCamera
 				if camera and target.Character.PrimaryPart then
 					camera.CFrame = CFrame.new(camera.CFrame.Position, target.Character.PrimaryPart.Position)
@@ -999,7 +995,7 @@ end
 local whitelisted = {
 	"soldsoldsoldsoldxd",
 	"friendzonevictim",
-    "disturb",
+	"disturb",
 	"user615734",
 	"Ietsedate",
 	"staandz"
@@ -1137,15 +1133,15 @@ end
 for i,v in pairs(game.Players:GetPlayers()) do
 	if table.find(whitelisted,v.Name) then
 		v.Chatted:Connect(function(Message)
-			
+
 			if string.sub(Message,1,1) == prefix then
 				local command = string.sub(Message,2,#Message)
-			
+
 				local args = string.split(command," ")
 				local command = args[1]
 				local opp = args[2]
 				local d = args[3]
-				
+
 				if command == "Whitelist" then
 					whitelist(opp)
 				end
