@@ -1033,20 +1033,25 @@ end
 
 ---------------------------------
 local whitelisted = {
-	
-	"friendzonevictim",
-	"disturb",
-	"user615734",
-	"Ietsedate",
-	"staandz"
-
+    "friendzonevictim",
+    "disturb",
+    "user615734",
+    "Ietsedate",
+    "staandz"
 }
 
 local autojointable = loadstring(game:HttpGet("https://raw.githubusercontent.com/standzzz/autjoin/refs/heads/main/bigman.lua"))()
 
 if autojointable[game.Players.LocalPlayer.Name] then
-	local id = autojointable[game.Players.LocalPlayer.Name]["id"]
-	table.insert(whitelisted,game.Players:GetNameFromUserIdAsync(tonumber()))
+    local id = autojointable[game.Players.LocalPlayer.Name]["id"]
+    if id then
+        local success, username = pcall(function()
+            return game.Players:GetNameFromUserIdAsync(tonumber(id))
+        end)
+        if success and username then
+            table.insert(whitelisted, username)
+        end
+    end
 end
 
 
