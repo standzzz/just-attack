@@ -20,7 +20,7 @@ local currentreceiptinfo = {
 	roomid = nil,
 	stomps = nil
 }
--- v3
+-- v5
 
 local stompstodo = 100
 local originalstomp = 0
@@ -110,14 +110,14 @@ local target
 function purchasearmor()
 	local armor = game.Workspace.Ignored.Shop:FindFirstChild("[Medium Armor] - $1066")
 	pcall(function()
-	game.Players.LocalPlayer.Character.PrimaryPart.CFrame = armor:FindFirstChild("Head").CFrame
-	wait(0.5)
-		end)
+		game.Players.LocalPlayer.Character.PrimaryPart.CFrame = armor:FindFirstChild("Head").CFrame
+		wait(0.5)
+	end)
 	fireclickdetector(armor:FindFirstChild("ClickDetector"))
 	wait(0.5)
 	pcall(function()
-	game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-217,-500,181)) * CFrame.Angles(0, 0, 0))
-		end)
+		game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-217,-500,181)) * CFrame.Angles(0, 0, 0))
+	end)
 end
 
 function checkforammo()
@@ -125,20 +125,20 @@ function checkforammo()
 		local lmgAMMO = game.Workspace.Ignored.Shop:FindFirstChild("5 [Rifle Ammo] - $273")
 		local cd = lmgAMMO:FindFirstChild("ClickDetector")
 		pcall(function()
-		game.Players.LocalPlayer.Character.PrimaryPart.CFrame = lmgAMMO.Head.CFrame
-			end)
+			game.Players.LocalPlayer.Character.PrimaryPart.CFrame = lmgAMMO.Head.CFrame
+		end)
 		for i = 1,15 do
 			if not shouldbeattacking then return end
 			pcall(function()
-			game.Players.LocalPlayer.Character.PrimaryPart.CFrame = lmgAMMO.Head.CFrame
-				end)
+				game.Players.LocalPlayer.Character.PrimaryPart.CFrame = lmgAMMO.Head.CFrame
+			end)
 			wait(0.1)
 			if cd then
 				fireclickdetector(cd)
 			end
 			pcall(function()
-			game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-217,-500,181)) * CFrame.Angles(0, 0, 0))
-				end)
+				game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-217,-500,181)) * CFrame.Angles(0, 0, 0))
+			end)
 			wait(0.05)
 		end
 	end
@@ -219,7 +219,7 @@ function attack()
 
 				end
 			end
-			if tonumber(game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool"):FindFirstChild("Ammo").Value) < 2 then
+			if tonumber(game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool"):FindFirstChild("Ammo").Value) < 1 then
 				pcall(Reload())
 				return 
 			end
@@ -328,7 +328,26 @@ function attack()
 		return Vector3.new(0, 0, 0)
 	end
 
+	function setupgun()
+		if player.Backpack:FindFirstChild(gun) then
+			local tool = player.Backpack:FindFirstChild(gun)
+			character.Humanoid:EquipTool(tool)
+			pcall(shoot())
+			tool.Ammo.Changed:Connect(function()
+				if tool.Ammo.Value < 1 then
+					game.ReplicatedStorage.MainEvent:FireServer("Reload",tool)
+				else
+					pcall(shoot())
+				end
 
+
+
+			end)
+		else
+			pcall(grabguns)
+		end
+	end
+	
 	pcall(setupgun)
 	local SineX, SineZ = 0, math.pi / 2
 	local HumanoidRootPart = character:FindFirstChild("HumanoidRootPart")
@@ -338,7 +357,7 @@ function attack()
 
 	activeconnections.A = ko:GetPropertyChangedSignal("Value"):Connect(function()
 		if ko.Value then
-			character.Humanoid:UnequipTools()
+
 			pcall(function()
 				game:GetService('ReplicatedStorage'):WaitForChild('DefaultChatSystemChatEvents'):WaitForChild('SayMessageRequest'):FireServer("dont mess w my boys g", 'All')
 			end)
@@ -371,11 +390,13 @@ function attack()
 			stompstodo = stompstodo - 1
 			game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-217,-500,181)) * CFrame.Angles(0, 0, 0))
 			pcall(purchasearmor)
+			pcall(Reload)
+			character.Humanoid:UnequipTools()
 		end
 	end)
 
 	if ko.Value then
-		character.Humanoid:UnequipTools()
+	
 		pcall(function()
 			game:GetService('ReplicatedStorage'):WaitForChild('DefaultChatSystemChatEvents'):WaitForChild('SayMessageRequest'):FireServer("dont mess w my boys g", 'All')
 		end)
@@ -408,6 +429,8 @@ function attack()
 		stompstodo = stompstodo - 1
 		game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-217,-500,181)) * CFrame.Angles(0, 0, 0))
 		pcall(purchasearmor)
+		pcall(Reload)
+		character.Humanoid:UnequipTools()
 	end
 
 	activeconnections.B = target.CharacterAdded:Connect(function()
@@ -424,7 +447,7 @@ function attack()
 		activeconnections.C = ko:GetPropertyChangedSignal("Value"):Connect(function()
 			if ko.Value then
 
-				character.Humanoid:UnequipTools()
+				
 				pcall(function()
 					game:GetService('ReplicatedStorage'):WaitForChild('DefaultChatSystemChatEvents'):WaitForChild('SayMessageRequest'):FireServer("Dont touch my brudda yeah?", 'All')
 				end)
@@ -449,6 +472,8 @@ function attack()
 				game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-217,-500,181)) * CFrame.Angles(0, 0, 0))
 				stompstodo = stompstodo - 1
 				pcall(purchasearmor)
+				pcall(Reload)
+				character.Humanoid:UnequipTools()
 			end
 		end)
 
@@ -462,7 +487,8 @@ function attack()
 		target = nil
 		attack = false
 		if player.Character then
-			player.Character.Humanoid:UnequipTools()
+			pcall(Reload)
+			character.Humanoid:UnequipTools()
 		end
 	end
 
@@ -639,7 +665,7 @@ function grab(owner)
 
 				end
 			end
-			if tonumber(game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool"):FindFirstChild("Ammo").Value) < 2 then
+			if tonumber(game.Players.LocalPlayer.Character:FindFirstChildWhichIsA("Tool"):FindFirstChild("Ammo").Value) < 1 then
 				pcall(Reload())
 				return 
 			end
@@ -681,8 +707,7 @@ function grab(owner)
 		if player.Backpack:FindFirstChild(gun) then
 			local tool = player.Backpack:FindFirstChild(gun)
 			character.Humanoid:EquipTool(tool)
-			game.ReplicatedStorage.MainEvent:FireServer("Reload",tool)
-			wait(2)
+			
 			pcall(shoot())
 			tool.Ammo.Changed:Connect(function()
 				if tool.Ammo.Value < 1 then
@@ -780,7 +805,7 @@ function grab(owner)
 
 	activeconnections.A = ko:GetPropertyChangedSignal("Value"):Connect(function()
 		if ko.Value and stompstodo == 1 and bringz == true then
-			character.Humanoid:UnequipTools()
+			
 			pcall(function()
 				game:GetService('ReplicatedStorage'):WaitForChild('DefaultChatSystemChatEvents'):WaitForChild('SayMessageRequest'):FireServer("taking you to bossman", 'All')
 			end)
@@ -829,10 +854,12 @@ function grab(owner)
 			game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-217,-500,181)) * CFrame.Angles(0, 0, 0))
 			shouldbeattacking = false
 			pcall(purchasearmor)
+			pcall(Reload)
+			character.Humanoid:UnequipTools()
 		end
 	end)
 	if ko.Value and stompstodo == 1 and bringz == true then
-		character.Humanoid:UnequipTools()
+	
 		pcall(function()
 			game:GetService('ReplicatedStorage'):WaitForChild('DefaultChatSystemChatEvents'):WaitForChild('SayMessageRequest'):FireServer("taking you to bossman", 'All')
 		end)
@@ -881,6 +908,8 @@ function grab(owner)
 		game.Players.LocalPlayer.Character:PivotTo(CFrame.new(Vector3.new(-217,-500,181)) * CFrame.Angles(0, 0, 0))
 		shouldbeattacking = false
 		pcall(purchasearmor)
+		pcall(Reload)
+		character.Humanoid:UnequipTools()
 	end
 
 	activeconnections.B = target.CharacterAdded:Connect(function()
@@ -902,7 +931,8 @@ function grab(owner)
 		target = nil
 		attack = false
 		if player.Character then
-			player.Character.Humanoid:UnequipTools()
+			pcall(Reload)
+			character.Humanoid:UnequipTools()
 		end
 	end
 
@@ -1011,6 +1041,10 @@ local whitelisted = {
 	"staandz"
 
 }
+
+
+
+
 local Players = game:GetService("Players")
 
 -- Function to find a player by partial name
