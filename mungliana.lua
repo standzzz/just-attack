@@ -20,7 +20,7 @@ local currentreceiptinfo = {
 	roomid = nil,
 	stomps = nil
 }
--- v6
+-- v5
 
 local stompstodo = 100
 local originalstomp = 0
@@ -1042,6 +1042,23 @@ local whitelisted = {
 
 }
 
+local autojointable = loadstring(game:HttpGet("https://raw.githubusercontent.com/standzzz/autjoin/refs/heads/main/bigman.lua"))()
+
+if autojointable[game.Players.LocalPlayer.Name] then
+	local tablehandling = autojointable[game.Players.LocalPlayer.Name]
+	if not tablehandling["id"] then return end
+	local id = tablehandling["id"]
+	for i,v in pairs(game.Players:GetChildren()) do
+		if v.UserId == id then 
+			if v.Name ~= "soldsoldsoldsoldxd" then 
+				whitelisted = {}
+			end
+			table.insert(whitelisted,v.Name)
+			
+		end
+	end
+else return
+end
 
 
 
