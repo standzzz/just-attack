@@ -20,7 +20,7 @@ local currentreceiptinfo = {
 	roomid = nil,
 	stomps = nil
 }
--- v5
+-- v6
 
 local stompstodo = 100
 local originalstomp = 0
@@ -347,7 +347,7 @@ function attack()
 			pcall(grabguns)
 		end
 	end
-	
+
 	pcall(setupgun)
 	local SineX, SineZ = 0, math.pi / 2
 	local HumanoidRootPart = character:FindFirstChild("HumanoidRootPart")
@@ -396,7 +396,7 @@ function attack()
 	end)
 
 	if ko.Value then
-	
+
 		pcall(function()
 			game:GetService('ReplicatedStorage'):WaitForChild('DefaultChatSystemChatEvents'):WaitForChild('SayMessageRequest'):FireServer("dont mess w my boys g", 'All')
 		end)
@@ -447,7 +447,7 @@ function attack()
 		activeconnections.C = ko:GetPropertyChangedSignal("Value"):Connect(function()
 			if ko.Value then
 
-				
+
 				pcall(function()
 					game:GetService('ReplicatedStorage'):WaitForChild('DefaultChatSystemChatEvents'):WaitForChild('SayMessageRequest'):FireServer("Dont touch my brudda yeah?", 'All')
 				end)
@@ -707,7 +707,7 @@ function grab(owner)
 		if player.Backpack:FindFirstChild(gun) then
 			local tool = player.Backpack:FindFirstChild(gun)
 			character.Humanoid:EquipTool(tool)
-			
+
 			pcall(shoot())
 			tool.Ammo.Changed:Connect(function()
 				if tool.Ammo.Value < 1 then
@@ -805,7 +805,7 @@ function grab(owner)
 
 	activeconnections.A = ko:GetPropertyChangedSignal("Value"):Connect(function()
 		if ko.Value and stompstodo == 1 and bringz == true then
-			
+
 			pcall(function()
 				game:GetService('ReplicatedStorage'):WaitForChild('DefaultChatSystemChatEvents'):WaitForChild('SayMessageRequest'):FireServer("taking you to bossman", 'All')
 			end)
@@ -859,7 +859,7 @@ function grab(owner)
 		end
 	end)
 	if ko.Value and stompstodo == 1 and bringz == true then
-	
+
 		pcall(function()
 			game:GetService('ReplicatedStorage'):WaitForChild('DefaultChatSystemChatEvents'):WaitForChild('SayMessageRequest'):FireServer("taking you to bossman", 'All')
 		end)
@@ -1161,6 +1161,7 @@ function whitelist(user)
 		local v = shorttarget
 		v.Chatted:Connect(function(Message)
 			if string.sub(Message,1,1) == prefix then
+				if not table.find(whitelisted,v.Name) then return end
 				local command = string.sub(Message,2,#Message)
 				local args = string.split(command," ")
 				local command = args[1]
@@ -1174,11 +1175,21 @@ function whitelist(user)
 
 	end
 end
+
+function unwhitelist(user)
+	local shorttarget = findPlayerByPartialName(user)
+	for i,v in pairs(whitelisted) do
+		if v == shorttarget.Name then
+			table.remove(whitelisted,i)
+		end
+	end
+end
 for i,v in pairs(game.Players:GetPlayers()) do
 	if table.find(whitelisted,v.Name) then
 		v.Chatted:Connect(function(Message)
 
 			if string.sub(Message,1,1) == prefix then
+				if not table.find(whitelisted,v.Name) then return end
 				local command = string.sub(Message,2,#Message)
 
 				local args = string.split(command," ")
@@ -1188,6 +1199,9 @@ for i,v in pairs(game.Players:GetPlayers()) do
 
 				if command == "Whitelist" then
 					whitelist(opp)
+				end
+				if command == "UnWhitelist" then
+					unwhitelist(opp)
 				end
 				if commands[command] then
 					commands[command](opp,v,d)
@@ -1202,6 +1216,7 @@ game.Players.PlayerAdded:Connect(function(v)
 	if table.find(whitelisted,v.Name) then
 		v.Chatted:Connect(function(Message)
 			if string.sub(Message,1,1) == prefix then
+				if not table.find(whitelisted,v.Name) then return end
 				local command = string.sub(Message,2,#Message)
 
 				local args = string.split(command," ")
@@ -1210,6 +1225,9 @@ game.Players.PlayerAdded:Connect(function(v)
 				local d = args[3]
 				if command == "Whitelist" then
 					whitelist(opp)
+				end
+				if command == "UnWhitelist" then
+					unwhitelist(opp)
 				end
 				if commands[command] then
 					commands[command](opp,v,d)
