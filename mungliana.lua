@@ -495,7 +495,7 @@ function attack()
 
 	activeconnections.B = target.CharacterAdded:Connect(function()
 		wait(2)
-		if not target or target.Character then return end
+		if not target or not  target.Character then return end
 		attack = true
 		if not target or not target.Character then return end
 		local bd = target and target.Character and target.Character:FindFirstChild("BodyEffects") and (target.Character:FindFirstChild("BodyEffects") or target.Character:FindFirstChild("BodyEffects"))
