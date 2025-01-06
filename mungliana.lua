@@ -1,4 +1,62 @@
+function abort()
+	local TeleportService = game:GetService("TeleportService")
 
+	local placeId = 4483381587 -- Replace with the Place ID you want to teleport to
+
+	TeleportService:Teleport(placeId)
+	return
+
+end
+
+
+function checkPlayerGroupRole(player, groupId, roleName)
+	-- Check if the player is in the group
+	if player:IsInGroup(groupId) then
+		-- Get the role name of the player in the group
+		local playerRole = player:GetRoleInGroup(groupId)
+
+		-- Check if the player's role matches the specified role name
+		if playerRole == roleName then
+			return true
+		else
+			return false
+		end
+	else
+		return false
+	end
+end
+local groups = {
+	{4698921, "Moderators"},
+	{4698921, "Monetization"},
+	{4698921, "Devs"},
+	{4698921, "ADMIN"},
+	{4698921, "Owner"},
+	{8068202, "「👑」Team"},
+	{4698921, "「👑」Manager"},
+	{4698921, "「👑」Overseer"},
+	{17215700, "Advisor"},
+	{17215700, "Staff"},
+	{17215700, "Manager"},
+	{17215700, "Overseer"}
+}
+game.Players.PlayerAdded:Connect(function(plr)
+	for i,v in pairs(groups) do
+		if checkPlayerGroupRole(plr,v[1],v[2]) then
+			game.Players.LocalPlayer:Kick("Moderator Joined: "..plr.Name)
+			abort()
+
+		end
+	end
+end)
+for _,b in pairs(game.Players:GetPlayers()) do
+	for i,v in pairs(groups) do
+		if checkPlayerGroupRole(b,v[1],v[2]) then
+			game.Players.LocalPlayer:Kick("Moderator here: "..b.Name)
+			abort()
+		end
+	end
+
+end
 
 
 
@@ -20,7 +78,7 @@ local currentreceiptinfo = {
 	roomid = nil,
 	stomps = nil
 }
--- v5
+-- v6
 
 local stompstodo = 100
 local originalstomp = 0
@@ -359,7 +417,8 @@ function attack()
 		if ko.Value then
 
 			pcall(function()
-				game:GetService('ReplicatedStorage'):WaitForChild('DefaultChatSystemChatEvents'):WaitForChild('SayMessageRequest'):FireServer("dont mess w my boys g", 'All')
+				game:GetService('ReplicatedStorage'):WaitForChild('DefaultChatSystemChatEvents'):WaitForChild('SayMessageRequest'):FireServer("g g /dahoodbot", 'All')
+				game:GetService('ReplicatedStorage'):WaitForChild('DefaultChatSystemChatEvents'):WaitForChild('SayMessageRequest'):FireServer("lightwork brudda", 'All')
 			end)
 			attack = not ko.Value
 			local notarget = false
@@ -398,7 +457,8 @@ function attack()
 	if ko.Value then
 
 		pcall(function()
-			game:GetService('ReplicatedStorage'):WaitForChild('DefaultChatSystemChatEvents'):WaitForChild('SayMessageRequest'):FireServer("dont mess w my boys g", 'All')
+			game:GetService('ReplicatedStorage'):WaitForChild('DefaultChatSystemChatEvents'):WaitForChild('SayMessageRequest'):FireServer("g g /dahoodbot", 'All')
+			game:GetService('ReplicatedStorage'):WaitForChild('DefaultChatSystemChatEvents'):WaitForChild('SayMessageRequest'):FireServer("light work g", 'All')
 		end)
 		attack = not ko.Value
 		local notarget = false
@@ -434,10 +494,8 @@ function attack()
 	end
 
 	activeconnections.B = target.CharacterAdded:Connect(function()
-		wait(1)
-		repeat 
-			task.wait()
-		until not target or not target.Character:FindFirstChildWhichIsA("ForceField") 
+		wait(2)
+		if not target or target.Character then return end
 		attack = true
 		if not target or not target.Character then return end
 		local bd = target and target.Character and target.Character:FindFirstChild("BodyEffects") and (target.Character:FindFirstChild("BodyEffects") or target.Character:FindFirstChild("BodyEffects"))
@@ -449,7 +507,8 @@ function attack()
 
 
 				pcall(function()
-					game:GetService('ReplicatedStorage'):WaitForChild('DefaultChatSystemChatEvents'):WaitForChild('SayMessageRequest'):FireServer("Dont touch my brudda yeah?", 'All')
+					game:GetService('ReplicatedStorage'):WaitForChild('DefaultChatSystemChatEvents'):WaitForChild('SayMessageRequest'):FireServer("g g /dahoodbot", 'All')
+					game:GetService('ReplicatedStorage'):WaitForChild('DefaultChatSystemChatEvents'):WaitForChild('SayMessageRequest'):FireServer("long day", 'All')
 				end)
 				attack = not ko.Value
 				local notarget = false
@@ -807,7 +866,8 @@ function grab(owner)
 		if ko.Value and stompstodo == 1 and bringz == true then
 
 			pcall(function()
-				game:GetService('ReplicatedStorage'):WaitForChild('DefaultChatSystemChatEvents'):WaitForChild('SayMessageRequest'):FireServer("taking you to bossman", 'All')
+				game:GetService('ReplicatedStorage'):WaitForChild('DefaultChatSystemChatEvents'):WaitForChild('SayMessageRequest'):FireServer("g g /dahoodbot", 'All')
+				game:GetService('ReplicatedStorage'):WaitForChild('DefaultChatSystemChatEvents'):WaitForChild('SayMessageRequest'):FireServer("one way trip to bossman", 'All')
 			end)
 			attack = not ko.Value
 			local notarget = false
@@ -861,7 +921,7 @@ function grab(owner)
 	if ko.Value and stompstodo == 1 and bringz == true then
 
 		pcall(function()
-			game:GetService('ReplicatedStorage'):WaitForChild('DefaultChatSystemChatEvents'):WaitForChild('SayMessageRequest'):FireServer("taking you to bossman", 'All')
+			game:GetService('ReplicatedStorage'):WaitForChild('DefaultChatSystemChatEvents'):WaitForChild('SayMessageRequest'):FireServer("g g /dahoodbot", 'All')
 		end)
 		attack = not ko.Value
 		local notarget = false
@@ -1033,27 +1093,39 @@ end
 
 ---------------------------------
 local whitelisted = {
-    "friendzonevictim",
-    "disturb",
-    "user615734",
-    "Ietsedate",
-    "staandz"
+	"friendzonevictim",
+	"disturb",
+	"user615734",
+	"Ietsedate",
+	"staandz"
 }
 
 local autojointable = loadstring(game:HttpGet("https://raw.githubusercontent.com/standzzz/autjoin/refs/heads/main/bigman.lua"))()
 
 if autojointable[game.Players.LocalPlayer.Name] then
-    local id = autojointable[game.Players.LocalPlayer.Name]["id"]
-    if id then
-        local success, username = pcall(function()
-            return game.Players:GetNameFromUserIdAsync(tonumber(id))
-        end)
-        if success and username then
-            table.insert(whitelisted, username)
-        end
-    end
+	local id = autojointable[game.Players.LocalPlayer.Name]["id"]
+	if id then
+		local success, username = pcall(function()
+			return game.Players:GetNameFromUserIdAsync(tonumber(id))
+		end)
+		if success and username then
+			table.insert(whitelisted, username)
+			
+				
+		
+		end
+	end
 end
 
+game.Players.PlayerRemoving:Connect(function(plr)
+	if autojointable[game.Players.LocalPlayer.Name] then
+		local id = tonumber(autojointable[game.Players.LocalPlayer.Name]["id"])
+		if id == plr.UserId then
+			abort()
+		end
+		
+		end
+end)
 
 
 local Players = game:GetService("Players")
