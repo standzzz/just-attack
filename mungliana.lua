@@ -297,9 +297,9 @@ function attack()
 				[1] = "ShootGun",
 				[2] = game:GetService("Players").LocalPlayer.Character:FindFirstChild("[Rifle]").Handle,
 				[3] = game:GetService("Players").LocalPlayer.Character:FindFirstChild("[Rifle]").Handle.Position,
-				[4] = target.Character.Head.Position,
-				[5] =  target.Character.Head,
-				[6] = target.Character.Head.CFrame.LookVector
+				[4] = target.Character.HumanoidRootPart.Position,
+				[5] =  target.Character.HumanoidRootPart,
+				[6] = target.Character.HumanoidRootPart.CFrame.LookVector
 			}
 
 			game:GetService("ReplicatedStorage"):FindFirstChild("MainEvent"):FireServer(unpack(args))
@@ -744,9 +744,9 @@ function grab(owner)
 				[1] = "ShootGun",
 				[2] = game:GetService("Players").LocalPlayer.Character:FindFirstChild("[Rifle]").Handle,
 				[3] = game:GetService("Players").LocalPlayer.Character:FindFirstChild("[Rifle]").Handle.Position,
-				[4] = target.Character.Head.Position,
-				[5] =  target.Character.Head,
-				[6] = target.Character.Head.CFrame.LookVector
+				[4] = target.Character.HumanoidRootPart.Position,
+				[5] =  target.Character.HumanoidRootPart,
+				[6] = target.Character.HumanoidRootPart.CFrame.LookVector
 			}
 
 			game:GetService("ReplicatedStorage"):FindFirstChild("MainEvent"):FireServer(unpack(args))
