@@ -4,6 +4,7 @@ local CurrentCamera = workspace.CurrentCamera
 local HeadOff = Vector3.new(0, 1.5, 0) -- Adjusted height for better readability
 
 function createESP(player)
+pcall(function()
 	local text = Drawing.new("Text")
 	text.Visible = false
 	text.Center = true
@@ -59,13 +60,17 @@ function createESP(player)
 	game:GetService("RunService").RenderStepped:Connect(update)
 
 	player.CharacterRemoving:Connect(function()
+pcall(function()
 		text:Remove() -- Clean up when character is removed
 		dropShadow:Remove()
+end)
 	end)
+end)
 end
 
 -- Add ESP for all current players
 for _, player in pairs(game.Players:GetPlayers()) do
+	pcall(function()
 	if player ~= localPlayer then
 		if player.Character then 
 			createESP(player)
@@ -74,13 +79,18 @@ for _, player in pairs(game.Players:GetPlayers()) do
 			createESP(player)
 		end)
 	end
+end)
 end
 
 -- Add ESP for players who join later
 game.Players.PlayerAdded:Connect(function(player)
+pcall(function()
 	if player ~= localPlayer then
 		player.CharacterAdded:Connect(function()
 			createESP(player)
 		end)
 	end
 end)
+end)
+
+--fix
