@@ -163,6 +163,9 @@ end
 
 
 local shouldbeattacking = true
+game.Players.LocalPlayer.CharacterRemoving:Connect(function()
+	shouldbeattacking = false
+end)
 local target 
 
 function purchasearmor()
@@ -179,8 +182,9 @@ function purchasearmor()
 end
 
 function checkforammo()
-	if game.Players.LocalPlayer.DataFolder.Inventory["[Rifle]"].Value < 2 then
-		local lmgAMMO = game.Workspace.Ignored.Shop:FindFirstChild("5 [Rifle Ammo] - $273")
+	if tonumber(game.Players.LocalPlayer.DataFolder.Inventory["[Rifle]"].Value) < 2 or  tonumber(game.Players.LocalPlayer.DataFolder.Inventory["[Rifle]"].Value) == 0 then
+		
+        local lmgAMMO = game.Workspace.Ignored.Shop:FindFirstChild("5 [Rifle Ammo] - $273")
 		local cd = lmgAMMO:FindFirstChild("ClickDetector")
 		pcall(function()
 			game.Players.LocalPlayer.Character.PrimaryPart.CFrame = lmgAMMO.Head.CFrame
@@ -199,7 +203,9 @@ function checkforammo()
 			end)
 			wait(0.05)
 		end
+        wait(1)
 	end
+    return "done"
 end
 
 function attack()
@@ -292,14 +298,21 @@ function attack()
 			}
 
 			game:GetService("Players").LocalPlayer.Character:FindFirstChild("[Rifle]").RemoteEvent:FireServer(unpack(args))
-
+			
+			local aimparrt = "HumanoidRootPart"
+			if target and target.Character then
+				if target.Character:FindFirstChildWhichIsA("ForceField") then
+					aimparrt = "Head"
+				end
+			end
+			
 			local args = {
 				[1] = "ShootGun",
 				[2] = game:GetService("Players").LocalPlayer.Character:FindFirstChild("[Rifle]").Handle,
 				[3] = game:GetService("Players").LocalPlayer.Character:FindFirstChild("[Rifle]").Handle.Position,
-				[4] = target.Character.HumanoidRootPart.Position,
-				[5] =  target.Character.HumanoidRootPart,
-				[6] = target.Character.HumanoidRootPart.CFrame.LookVector
+				[4] = target.Character[aimparrt].Position,
+				[5] =  target.Character[aimparrt],
+				[6] = target.Character[aimparrt].CFrame.LookVector
 			}
 
 			game:GetService("ReplicatedStorage"):FindFirstChild("MainEvent"):FireServer(unpack(args))
@@ -494,7 +507,7 @@ function attack()
 	end
 
 	activeconnections.B = target.CharacterAdded:Connect(function()
-		wait(2)
+		wait(1)
 		if not target or not  target.Character then return end
 		attack = true
 		if not target or not target.Character then return end
@@ -606,7 +619,10 @@ function attack()
 				pcall(noclipactive)
 				pcall(shoot)
 				pcall(Reload)
-				pcall(checkforammo)
+                if tonumber(game.Players.LocalPlayer.DataFolder.Inventory["[Rifle]"].Value) < 2 or  tonumber(game.Players.LocalPlayer.DataFolder.Inventory["[Rifle]"].Value) == 0 then
+				local b = pcall(checkforammo)
+                wait(3)
+                end
 				local speaker = game.Players.LocalPlayer
 				if speaker.Character:FindFirstChildOfClass('Humanoid') and speaker.Character:FindFirstChildOfClass('Humanoid').SeatPart then
 					speaker.Character:FindFirstChildOfClass('Humanoid').Sit = false
@@ -740,14 +756,22 @@ function grab(owner)
 
 			game:GetService("Players").LocalPlayer.Character:FindFirstChild("[Rifle]").RemoteEvent:FireServer(unpack(args))
 
+			local aimparrt = "HumanoidRootPart"
+			if target and target.Character then
+				if target.Character:FindFirstChildWhichIsA("ForceField") then
+					aimparrt = "Head"
+				end
+			end
+
 			local args = {
 				[1] = "ShootGun",
 				[2] = game:GetService("Players").LocalPlayer.Character:FindFirstChild("[Rifle]").Handle,
 				[3] = game:GetService("Players").LocalPlayer.Character:FindFirstChild("[Rifle]").Handle.Position,
-				[4] = target.Character.HumanoidRootPart.Position,
-				[5] =  target.Character.HumanoidRootPart,
-				[6] = target.Character.HumanoidRootPart.CFrame.LookVector
+				[4] = target.Character[aimparrt].Position,
+				[5] =  target.Character[aimparrt],
+				[6] = target.Character[aimparrt].CFrame.LookVector
 			}
+
 
 			game:GetService("ReplicatedStorage"):FindFirstChild("MainEvent"):FireServer(unpack(args))
 
@@ -1050,7 +1074,10 @@ function grab(owner)
 				pcall(noclipactive)
 				pcall(shoot)
 				pcall(Reload)
-				pcall(checkforammo)
+				 if tonumber(game.Players.LocalPlayer.DataFolder.Inventory["[Rifle]"].Value) < 2 or  tonumber(game.Players.LocalPlayer.DataFolder.Inventory["[Rifle]"].Value) == 0 then
+				local b = pcall(checkforammo)
+                wait(3)
+                end
 				local speaker = game.Players.LocalPlayer
 				if speaker.Character:FindFirstChildOfClass('Humanoid') and speaker.Character:FindFirstChildOfClass('Humanoid').SeatPart then
 					speaker.Character:FindFirstChildOfClass('Humanoid').Sit = false
@@ -1323,4 +1350,4 @@ end)
 
 game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):ChangeState(Enum.HumanoidStateType.Dead)
 
--- version 2
+-- version 4
