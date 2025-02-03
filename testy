@@ -5970,6 +5970,12 @@ local function C_237()
 					tween:Play()
 				end
 			end
+			wait(1)
+			for i,v in pairs(ui:GetChildren()) do
+				if v:IsA("Frame") then
+					v.Visible = false
+				end
+			end
 		end)
 	end
 
@@ -6008,17 +6014,24 @@ local function C_237()
 					tween:Play()
 				end
 			end
+
 		end)
 	end
 
 	local function fadeinui(ui, savedProperties)
 		pcall(function()
+			for i,v in pairs(ui:GetChildren()) do
+				if v:IsA("Frame") then
+					v.Visible = true
+				end
+			end
 			for uiElement, originalProperties in pairs(savedProperties) do
 				if uiElement and uiElement.Parent then
 					local tween = TweenService:Create(uiElement, TweenInfo.new(1), originalProperties)
 					tween:Play()
 				end
 			end
+	
 		end)
 	end
 
@@ -6188,4 +6201,4 @@ task.spawn(C_237);
 
 return G2L["1"]
 
---45
+--46
