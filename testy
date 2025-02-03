@@ -6079,7 +6079,7 @@ local function C_237()
 		uiservice.InputBegan:Connect(function(input,g )
 			pcall(function()
 				if g then return end
-				if input.KeyCode == Enum.KeyCode.Insert then
+				if input.KeyCode == Enum.KeyCode.Insert or input.KeyCode == Enum.KeyCode.LeftAlt then
 					if not fade then 
 						fadeoutui(screenGui)
 					else
