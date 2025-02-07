@@ -5919,7 +5919,7 @@ local function C_237()
 			elseif uiElement:IsA("TextLabel") then
 				properties.TextTransparency = uiElement.TextTransparency
 
-			elseif uiElement:IsA("UIStroke") and uiElement.Parent.Parent.Name ~= "BillboardGui" then
+			elseif uiElement:IsA("UIStroke")and  uiElement.Parent.Parent.Name ~= "BillboardGui"  then
 				properties.Thickness = uiElement.Thickness
 				properties.Transparency = uiElement.Transparency
 
@@ -5956,7 +5956,7 @@ local function C_237()
 				elseif uiElement:IsA("TextLabel") then
 					tweenProperties.TextTransparency = 1
 
-				elseif uiElement:IsA("UIStroke") then
+				elseif uiElement:IsA("UIStroke") and  uiElement.Parent.Parent.Name ~= "BillboardGui"  then
 					tweenProperties.Thickness = 0
 					tweenProperties.Transparency = 1
 
@@ -5996,7 +5996,7 @@ local function C_237()
 				elseif uiElement:IsA("TextLabel") then
 					tweenProperties.TextTransparency = 1
 
-				elseif uiElement:IsA("UIStroke") then
+				elseif uiElement:IsA("UIStroke") and  uiElement.Parent.Parent.Name ~= "BillboardGui" then
 					tweenProperties.Thickness = 0
 					tweenProperties.Transparency = 1
 
@@ -6202,4 +6202,4 @@ task.spawn(C_237);
 
 return G2L["1"]
 
---5893
+--updatexd
