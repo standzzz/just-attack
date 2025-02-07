@@ -5901,7 +5901,7 @@ local function C_237()
 	-- Function to save original UI properties
 	local function getUIProperties(uiParent)
 		local uiTable = {}
-
+		
 		for _, uiElement in ipairs(uiParent:GetDescendants()) do
 			local properties = {}
 
@@ -5919,7 +5919,7 @@ local function C_237()
 			elseif uiElement:IsA("TextLabel") then
 				properties.TextTransparency = uiElement.TextTransparency
 
-			elseif uiElement:IsA("UIStroke") then
+			elseif uiElement:IsA("UIStroke") and uiElement.Parent.Parent.Name ~= "BillboardGui" then
 				properties.Thickness = uiElement.Thickness
 				properties.Transparency = uiElement.Transparency
 
@@ -5971,7 +5971,7 @@ local function C_237()
 				end
 			end
 			wait(1)
-		
+
 		end)
 	end
 
@@ -6016,14 +6016,14 @@ local function C_237()
 
 	local function fadeinui(ui, savedProperties)
 		pcall(function()
-		
+
 			for uiElement, originalProperties in pairs(savedProperties) do
 				if uiElement and uiElement.Parent then
 					local tween = TweenService:Create(uiElement, TweenInfo.new(1), originalProperties)
 					tween:Play()
 				end
 			end
-	
+
 		end)
 	end
 
@@ -6088,10 +6088,10 @@ local function C_237()
 					if not fade then 
 						fadeoutui(screenGui)
 						pcall(function()
-						wait(1)
-						screenGui.Active = true 
+							wait(1)
+							screenGui.Active = true 
 						end)
-						
+
 					else
 						fadeinui(screenGui,savedProperties)
 						pcall(function()
@@ -6202,4 +6202,4 @@ task.spawn(C_237);
 
 return G2L["1"]
 
---49
+--5893
