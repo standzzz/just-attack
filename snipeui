@@ -1,0 +1,264 @@
+--[=[
+ d888b  db    db d888888b      .d888b.      db      db    db  .d8b.  
+88' Y8b 88    88   `88'        VP  `8D      88      88    88 d8' `8b 
+88      88    88    88            odD'      88      88    88 88ooo88 
+88  ooo 88    88    88          .88'        88      88    88 88~~~88 
+88. ~8~ 88b  d88   .88.        j88.         88booo. 88b  d88 88   88    @uniquadev
+ Y888P  ~Y8888P' Y888888P      888888D      Y88888P ~Y8888P' YP   YP  CONVERTER 
+]=]
+-- your not a cracker g all our ui is useless to you guys
+-- Instances: 23 | Scripts: 0 | Modules: 0 | Tags: 1
+local CollectionService = game:GetService("CollectionService");
+local G2L = {};
+
+-- StarterGui.ScreenGui
+G2L["1"] = Instance.new("ScreenGui", game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui"));
+G2L["1"]["IgnoreGuiInset"] = true;
+G2L["1"]["ScreenInsets"] = Enum.ScreenInsets.DeviceSafeInsets;
+G2L["1"]["ZIndexBehavior"] = Enum.ZIndexBehavior.Sibling;
+G2L["1"]["ResetOnSpawn"] = false;
+
+
+-- StarterGui.ScreenGui.UIScale
+G2L["2"] = Instance.new("UIScale", G2L["1"]);
+G2L["2"]["Scale"] = 0.89297;
+-- Attributes
+G2L["2"]:SetAttribute([[Resolution]], Vector2.new(1914, 925));
+
+-- Tags
+CollectionService:AddTag(G2L["2"], [[UIScaleRuntimeObject]]);
+
+-- StarterGui.ScreenGui.Frame
+G2L["3"] = Instance.new("Frame", G2L["1"]);
+G2L["3"]["BorderSizePixel"] = 0;
+G2L["3"]["BackgroundColor3"] = Color3.fromRGB(30, 30, 30);
+G2L["3"]["AnchorPoint"] = Vector2.new(0.5, 0.5);
+G2L["3"]["Size"] = UDim2.new(1.04665, 0, 1.10811, 0);
+G2L["3"]["Position"] = UDim2.new(0.5, 0, 0.5, 0);
+G2L["3"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+
+
+-- StarterGui.ScreenGui.Frame.servercount
+G2L["4"] = Instance.new("TextLabel", G2L["3"]);
+G2L["4"]["TextWrapped"] = true;
+G2L["4"]["BorderSizePixel"] = 0;
+G2L["4"]["TextScaled"] = true;
+G2L["4"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["4"]["TextSize"] = 14;
+G2L["4"]["FontFace"] = Font.new([[rbxasset://fonts/families/ComicNeueAngular.json]], Enum.FontWeight.Heavy, Enum.FontStyle.Normal);
+G2L["4"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["4"]["BackgroundTransparency"] = 1;
+G2L["4"]["Size"] = UDim2.new(0.82776, 0, 0.02244, 0);
+G2L["4"]["Visible"] = false;
+G2L["4"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["4"]["Text"] = [[PLAYERS IN SERVER : 100]];
+G2L["4"]["Name"] = [[servercount]];
+G2L["4"]["Position"] = UDim2.new(0.08604, 0, 0.40732, 0);
+
+
+-- StarterGui.ScreenGui.Frame.servercount.UITextSizeConstraint
+G2L["5"] = Instance.new("UITextSizeConstraint", G2L["4"]);
+G2L["5"]["MaxTextSize"] = 20;
+
+
+-- StarterGui.ScreenGui.Frame.playersscanned
+G2L["6"] = Instance.new("TextLabel", G2L["3"]);
+G2L["6"]["TextWrapped"] = true;
+G2L["6"]["BorderSizePixel"] = 0;
+G2L["6"]["TextScaled"] = true;
+G2L["6"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["6"]["TextSize"] = 14;
+G2L["6"]["FontFace"] = Font.new([[rbxasset://fonts/families/ComicNeueAngular.json]], Enum.FontWeight.Heavy, Enum.FontStyle.Normal);
+G2L["6"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["6"]["BackgroundTransparency"] = 1;
+G2L["6"]["Size"] = UDim2.new(0.82776, 0, 0.02244, 0);
+G2L["6"]["Visible"] = false;
+G2L["6"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["6"]["Text"] = [[PLAYERS SCANNNED : 100]];
+G2L["6"]["Name"] = [[playersscanned]];
+G2L["6"]["Position"] = UDim2.new(0.08604, 0, 0.44038, 0);
+
+
+-- StarterGui.ScreenGui.Frame.playersscanned.UITextSizeConstraint
+G2L["7"] = Instance.new("UITextSizeConstraint", G2L["6"]);
+G2L["7"]["MaxTextSize"] = 20;
+
+
+-- StarterGui.ScreenGui.Frame.totalplayers
+G2L["8"] = Instance.new("TextLabel", G2L["3"]);
+G2L["8"]["TextWrapped"] = true;
+G2L["8"]["BorderSizePixel"] = 0;
+G2L["8"]["TextScaled"] = true;
+G2L["8"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["8"]["TextSize"] = 14;
+G2L["8"]["FontFace"] = Font.new([[rbxasset://fonts/families/ComicNeueAngular.json]], Enum.FontWeight.Heavy, Enum.FontStyle.Normal);
+G2L["8"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["8"]["BackgroundTransparency"] = 1;
+G2L["8"]["Size"] = UDim2.new(0.82776, 0, 0.02244, 0);
+G2L["8"]["Visible"] = false;
+G2L["8"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["8"]["Text"] = [[TOTAL PLAYERS SCANNED : 300]];
+G2L["8"]["Name"] = [[totalplayers]];
+G2L["8"]["Position"] = UDim2.new(0.08604, 0, 0.47016, 0);
+
+
+-- StarterGui.ScreenGui.Frame.totalplayers.UITextSizeConstraint
+G2L["9"] = Instance.new("UITextSizeConstraint", G2L["8"]);
+G2L["9"]["MaxTextSize"] = 20;
+
+
+-- StarterGui.ScreenGui.Frame.totalscanned
+G2L["a"] = Instance.new("TextLabel", G2L["3"]);
+G2L["a"]["TextWrapped"] = true;
+G2L["a"]["BorderSizePixel"] = 0;
+G2L["a"]["TextScaled"] = true;
+G2L["a"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["a"]["TextSize"] = 14;
+G2L["a"]["FontFace"] = Font.new([[rbxasset://fonts/families/ComicNeueAngular.json]], Enum.FontWeight.Heavy, Enum.FontStyle.Normal);
+G2L["a"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["a"]["BackgroundTransparency"] = 1;
+G2L["a"]["Size"] = UDim2.new(0.82776, 0, 0.02244, 0);
+G2L["a"]["Visible"] = false;
+G2L["a"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["a"]["Text"] = [[TOTAL SERVERS SCANNED : 300/3600]];
+G2L["a"]["Name"] = [[totalscanned]];
+G2L["a"]["Position"] = UDim2.new(0.08602, 0, 0.50321, 0);
+
+
+-- StarterGui.ScreenGui.Frame.totalscanned.UITextSizeConstraint
+G2L["b"] = Instance.new("UITextSizeConstraint", G2L["a"]);
+G2L["b"]["MaxTextSize"] = 20;
+
+
+-- StarterGui.ScreenGui.Frame.serverid
+G2L["c"] = Instance.new("TextLabel", G2L["3"]);
+G2L["c"]["TextWrapped"] = true;
+G2L["c"]["BorderSizePixel"] = 0;
+G2L["c"]["TextScaled"] = true;
+G2L["c"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["c"]["TextSize"] = 14;
+G2L["c"]["FontFace"] = Font.new([[rbxasset://fonts/families/ComicNeueAngular.json]], Enum.FontWeight.Heavy, Enum.FontStyle.Normal);
+G2L["c"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["c"]["BackgroundTransparency"] = 1;
+G2L["c"]["Size"] = UDim2.new(0.82776, 0, 0.02244, 0);
+G2L["c"]["Visible"] = false;
+G2L["c"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["c"]["Text"] = [[SCANNING SERVER : 96f038cd-b701-4743-8a95-8877f6695979]];
+G2L["c"]["Name"] = [[serverid]];
+G2L["c"]["Position"] = UDim2.new(0.08604, 0, 0.37427, 0);
+
+
+-- StarterGui.ScreenGui.Frame.serverid.UITextSizeConstraint
+G2L["d"] = Instance.new("UITextSizeConstraint", G2L["c"]);
+G2L["d"]["MaxTextSize"] = 20;
+
+
+-- StarterGui.ScreenGui.Frame.ImageLabel
+G2L["e"] = Instance.new("ImageLabel", G2L["3"]);
+G2L["e"]["BorderSizePixel"] = 0;
+G2L["e"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["e"]["Size"] = UDim2.new(0.16627, 0, 0.12976, 0);
+G2L["e"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["e"]["BackgroundTransparency"] = 1;
+G2L["e"]["Position"] = UDim2.new(0.41631, 0, 0.21523, 0);
+
+
+-- StarterGui.ScreenGui.Frame.PFP
+G2L["f"] = Instance.new("ImageLabel", G2L["3"]);
+G2L["f"]["BorderSizePixel"] = 0;
+G2L["f"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["f"]["Size"] = UDim2.new(0.04458, 0, 0.09756, 0);
+G2L["f"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["f"]["BackgroundTransparency"] = 1;
+G2L["f"]["Name"] = [[PFP]];
+G2L["f"]["Position"] = UDim2.new(0.47721, 0, 0.54409, 0);
+
+
+-- StarterGui.ScreenGui.Frame.warning
+G2L["10"] = Instance.new("Frame", G2L["3"]);
+G2L["10"]["ZIndex"] = 5;
+G2L["10"]["BorderSizePixel"] = 0;
+G2L["10"]["BackgroundColor3"] = Color3.fromRGB(26, 26, 26);
+G2L["10"]["Size"] = UDim2.new(0.34546, 0, 0.2839, 0);
+G2L["10"]["Position"] = UDim2.new(0.32696, 0, 0.30919, 0);
+G2L["10"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["10"]["Name"] = [[warning]];
+
+
+-- StarterGui.ScreenGui.Frame.warning.TextLabel
+G2L["11"] = Instance.new("TextLabel", G2L["10"]);
+G2L["11"]["TextWrapped"] = true;
+G2L["11"]["BorderSizePixel"] = 0;
+G2L["11"]["TextScaled"] = true;
+G2L["11"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["11"]["TextSize"] = 14;
+G2L["11"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Heavy, Enum.FontStyle.Normal);
+G2L["11"]["TextColor3"] = Color3.fromRGB(255, 86, 128);
+G2L["11"]["BackgroundTransparency"] = 1;
+G2L["11"]["Size"] = UDim2.new(0.65419, 0, 0.30928, 0);
+G2L["11"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["11"]["Text"] = [[NO SNIPE TARGETS FOUND PLEASE INSERT A USER IN THE TABLE OR USE THE DISCORD BOT ]];
+G2L["11"]["Position"] = UDim2.new(0.1734, 0, 0.33095, 0);
+
+
+-- StarterGui.ScreenGui.Frame.warning.TextLabel.UITextSizeConstraint
+G2L["12"] = Instance.new("UITextSizeConstraint", G2L["11"]);
+G2L["12"]["MaxTextSize"] = 54;
+
+
+-- StarterGui.ScreenGui.Frame.warning.TextLabel
+G2L["13"] = Instance.new("TextLabel", G2L["10"]);
+G2L["13"]["TextWrapped"] = true;
+G2L["13"]["BorderSizePixel"] = 0;
+G2L["13"]["TextScaled"] = true;
+G2L["13"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["13"]["TextSize"] = 14;
+G2L["13"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+G2L["13"]["TextColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["13"]["BackgroundTransparency"] = 1;
+G2L["13"]["Size"] = UDim2.new(0.58323, 0, 0.04467, 0);
+G2L["13"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["13"]["Text"] = [[IF YOU ARE USING PRESENCE API CHECK ALL USERS ARE OFFLINE.]];
+G2L["13"]["Position"] = UDim2.new(0.20808, 0, 0.70039, 0);
+
+
+-- StarterGui.ScreenGui.Frame.warning.TextLabel.UITextSizeConstraint
+G2L["14"] = Instance.new("UITextSizeConstraint", G2L["13"]);
+G2L["14"]["MaxTextSize"] = 11;
+
+
+-- StarterGui.ScreenGui.Frame.sniping
+G2L["15"] = Instance.new("Frame", G2L["3"]);
+G2L["15"]["Visible"] = false;
+G2L["15"]["ZIndex"] = 5;
+G2L["15"]["BorderSizePixel"] = 0;
+G2L["15"]["BackgroundColor3"] = Color3.fromRGB(26, 26, 26);
+G2L["15"]["Size"] = UDim2.new(0.34546, 0, 0.2839, 0);
+G2L["15"]["Position"] = UDim2.new(0.32696, 0, 0.30919, 0);
+G2L["15"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["15"]["Name"] = [[sniping]];
+
+
+-- StarterGui.ScreenGui.Frame.sniping.TextLabel
+G2L["16"] = Instance.new("TextLabel", G2L["15"]);
+G2L["16"]["TextWrapped"] = true;
+G2L["16"]["BorderSizePixel"] = 0;
+G2L["16"]["TextScaled"] = true;
+G2L["16"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+G2L["16"]["TextSize"] = 14;
+G2L["16"]["FontFace"] = Font.new([[rbxasset://fonts/families/SourceSansPro.json]], Enum.FontWeight.Heavy, Enum.FontStyle.Normal);
+G2L["16"]["TextColor3"] = Color3.fromRGB(86, 255, 128);
+G2L["16"]["BackgroundTransparency"] = 1;
+G2L["16"]["Size"] = UDim2.new(0.65419, 0, 0.30928, 0);
+G2L["16"]["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+G2L["16"]["Text"] = [[CURRENTLY KILLING USER : ONLYTWENTYTWOCHARACTERS]];
+G2L["16"]["Position"] = UDim2.new(0.1734, 0, 0.33095, 0);
+
+
+-- StarterGui.ScreenGui.Frame.sniping.TextLabel.UITextSizeConstraint
+G2L["17"] = Instance.new("UITextSizeConstraint", G2L["16"]);
+G2L["17"]["MaxTextSize"] = 78;
+
+
+
+return G2L["1"];
